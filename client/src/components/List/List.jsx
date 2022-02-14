@@ -5,23 +5,23 @@ import useStyles  from './styles'
 import PlaceDetails from '../PlaceDetails/PlaceDetails.jsx'
 
 
-const List = () => {
+const List = ({places}) => {
    const classes = useStyles();
    const [type, setType] = useState('')
    const [rating, setRating] = useState('')
 
-   const places = [
-     {name: 'place1' },
-     {name: 'place2'},
-     {name: 'place3'},
-     {name: 'place4' },
-     {name: 'place5'},
-     {name: 'place6'},
-     {name: 'place6'},
-     {name: 'place8' },
-     {name: 'place9'},
-     {name: 'place10'},
-   ]
+  //  const places = [
+  //    {name: 'place1' },
+  //    {name: 'place2'},
+  //    {name: 'place3'},
+  //    {name: 'place4' },
+  //    {name: 'place5'},
+  //    {name: 'place6'},
+  //    {name: 'place6'},
+  //    {name: 'place8' },
+  //    {name: 'place9'},
+  //    {name: 'place10'},
+  //  ]
     return(
      <div className={classes.container}>
        <Typography variant="h4"> Restaurants, Hotels and Attractions around you</Typography>
