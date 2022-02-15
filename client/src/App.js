@@ -9,9 +9,9 @@ import { getPlacesData } from './api';
 
 const App = () => {
   const [ places, setPlaces ] = useState();
-  const [ coordinates, setCoordinates ] = useState({ lat:0, lng: 0});
+  const [ coordinates, setCoordinates ] = useState({});
   const [ bounds, setBounds] = useState({sw: null, ne: null});
-
+  const [ click, setClick] = useState({})
   //Set the user's current location when we open the page first.
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(({ coords: { latitude, longitude}}) => {
@@ -21,7 +21,7 @@ const App = () => {
 
   //Pass the coordinates to the axios call to get the data of it.
   useEffect(() => {
-    console.log(coordinates,bounds);
+    // console.log(coordinates,bounds);
     getPlacesData(bounds.sw, bounds.ne)
     .then((data) => {
       // console.log(data);
@@ -35,7 +35,9 @@ const App = () => {
     <Header />
     <Grid container spacing={3} style={{ width: '100%' }}>
       <Grid item xs={12} md={4} >
-        <List places={places}/>
+        <List 
+        places={places}
+        click={click}/>
          </Grid>
          <Grid item xs={12} md={8} >
            <Map 
@@ -43,6 +45,7 @@ const App = () => {
             setBounds={setBounds}
             coordinates={coordinates}
             places={places}
+            setClick={setClick}
             />
          </Grid>
     </Grid>

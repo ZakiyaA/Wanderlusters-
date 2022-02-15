@@ -5,11 +5,11 @@ import useStyles  from './styles'
 import PlaceDetails from '../PlaceDetails/PlaceDetails.jsx'
 
 
-const List = ({places}) => {
+const List = ({places, click}) => {
    const classes = useStyles();
    const [type, setType] = useState('')
    const [rating, setRating] = useState('')
-
+  console.log({click});
   //  const places = [
   //    {name: 'place1' },
   //    {name: 'place2'},
