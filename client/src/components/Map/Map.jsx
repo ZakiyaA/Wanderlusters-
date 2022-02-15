@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import GoogleMapReact from "google-map-react";
 import { Paper, Typography, useMediaQuery } from "@material-ui/core";
 import { Rating } from '@material-ui/lab';
@@ -7,7 +7,7 @@ import useStyles from './styles';
 import { GoogleMap } from "@react-google-maps/api";
 import LocationOnOutlined from '@material-ui/icons/LocationOnOutlined';
 
-const Map = ({setCoordinates, setBounds, coordinates, places}) => {
+const Map = ({setCoordinates, setBounds, coordinates, places, setChildClicked}) => {
   const classes = useStyles();
   const isDesktop = useMediaQuery('(min-width:600px)');
   // const coordinates = { lat: 0, lng: 0 };
@@ -26,7 +26,7 @@ const Map = ({setCoordinates, setBounds, coordinates, places}) => {
             setCoordinates({lat: e.center.lat, lng: e.center.lng});
             setBounds({ ne: e.marginBounds.ne, sw: e.marginBounds.sw})
           }}
-          onChildClick={''}
+          onChildClick={(child) => setChildClicked(child)}
           >
             {places?.map((place, index) => (
               <div className={classes.markerContainer}
