@@ -9,8 +9,8 @@ import { getPlacesData } from './api';
 
 const App = () => {
   const [ places, setPlaces ] = useState();
-  const [ coordinates, setCoordinates ] = useState({lat:0 , lng:0});
-  const [ bounds, setBounds] = useState({ sw : null, ne : null });
+  const [ coordinates, setCoordinates ] = useState({ lat:0, lng: 0});
+  const [ bounds, setBounds] = useState({sw: null, ne: null});
 
   //Set the user's current location when we open the page first.
   useEffect(() => {
@@ -24,7 +24,7 @@ const App = () => {
     console.log(coordinates,bounds);
     getPlacesData(bounds.sw, bounds.ne)
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       setPlaces(data);
     })
   },[coordinates, bounds]);
@@ -42,6 +42,7 @@ const App = () => {
             setCoordinates={setCoordinates}
             setBounds={setBounds}
             coordinates={coordinates}
+            places={places}
             />
          </Grid>
     </Grid>
