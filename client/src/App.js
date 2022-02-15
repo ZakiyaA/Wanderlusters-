@@ -15,7 +15,9 @@ const App = () => {
   const [ bounds, setBounds] = useState({sw: null, ne: null});
 
   const [ isLoading, setIsLoading ] = useState(false);
-
+  const [type, setType] = useState('hotels');
+  const [rating, setRating] = useState('');
+  
   //Set the user's current location when we open the page first.
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(({ coords: { latitude, longitude}}) => {
@@ -28,13 +30,13 @@ const App = () => {
     setIsLoading(true)
 
     console.log(coordinates,bounds);
-    getPlacesData(bounds.sw, bounds.ne)
+    getPlacesData(type, bounds.sw, bounds.ne)
     .then((data) => {
       // console.log(data);
       setPlaces(data);
       setIsLoading(false);
     })
-  },[coordinates, bounds]);
+  }, [type, coordinates, bounds]);
 
   return(
   <>
@@ -46,6 +48,10 @@ const App = () => {
           places={places}
           childClicked={childClicked}
           isLoading={isLoading}
+          type={type}
+          setType={setType}
+          rating={rating}
+          setRating={setRating}
         />
          </Grid>
          <Grid item xs={12} md={8} >
