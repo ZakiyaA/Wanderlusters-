@@ -31,8 +31,8 @@ const Map = ({setCoordinates, setBounds, coordinates, places}) => {
           >
             {places?.map((place, index) => (
               <div className={classes.markerContainer}
-              lat={place.latitude}
-              lng={place.longitude}
+              lat={Number(place.latitude)}
+              lng={Number(place.longitude)}
               key={index}
               >
                 {
@@ -44,7 +44,11 @@ const Map = ({setCoordinates, setBounds, coordinates, places}) => {
                       <Typography className={classes.typography} variant="subtitle2" gutterbottom> 
                         {place.name}
                       </Typography>
-                      
+                      <img className={classes.pointer}
+                           src={place.photo ? place.photo.images.large.url : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'}
+                           alt={place.name}
+                          />
+
                     </Paper>
                   )
                 }
