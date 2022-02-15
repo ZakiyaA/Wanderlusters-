@@ -10,8 +10,11 @@ import { getPlacesData } from './api';
 const App = () => {
   const [ places, setPlaces ] = useState();
   const [childClicked, setChildClicked] = useState(null);
+  
   const [ coordinates, setCoordinates ] = useState({ lat:0, lng: 0});
   const [ bounds, setBounds] = useState({sw: null, ne: null});
+
+  const [ isLoading, setIsLoading ] = useState(false);
 
   //Set the user's current location when we open the page first.
   useEffect(() => {
@@ -22,11 +25,14 @@ const App = () => {
 
   //Pass the coordinates to the axios call to get the data of it.
   useEffect(() => {
+    setIsLoading(true)
+
     console.log(coordinates,bounds);
     getPlacesData(bounds.sw, bounds.ne)
     .then((data) => {
       // console.log(data);
       setPlaces(data);
+      setIsLoading(false);
     })
   },[coordinates, bounds]);
 
@@ -39,6 +45,7 @@ const App = () => {
         <List 
           places={places}
           childClicked={childClicked}
+          isLoading={isLoading}
         />
          </Grid>
          <Grid item xs={12} md={8} >

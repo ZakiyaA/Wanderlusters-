@@ -5,7 +5,7 @@ import useStyles  from './styles'
 import PlaceDetails from '../PlaceDetails/PlaceDetails.jsx'
 
 
-const List = ({ places, childClicked }) => {
+const List = ({ places, childClicked, isLoading }) => {
    const classes = useStyles();
    const [type, setType] = useState('');
    const [rating, setRating] = useState('');
@@ -13,7 +13,7 @@ const List = ({ places, childClicked }) => {
    const [elRefs, setElRefs] = useState([]);
 
    useEffect(() => {
-      const refs = Array(places.length).fill().map((_, i) => elRefs[i] || createRef());
+      const refs = Array(places?.length).fill().map((_, i) => elRefs[i] || createRef());
 
       setElRefs(refs);
     }, [places]);
@@ -33,6 +33,12 @@ const List = ({ places, childClicked }) => {
     return(
      <div className={classes.container}>
        <Typography variant="h4"> Restaurants, Hotels and Attractions around you</Typography>
+       {isLoading ? (
+         <div className={classes.loading}>
+           <CircularProgress size="5rem"/>
+         </div>
+       ) : (
+         <>
        <FormControl className={classes.formControl}>
          <InputLabel>Type</InputLabel>
          <Select value={type} onChange={(e) => setType(e.target.value)}>
@@ -52,16 +58,18 @@ const List = ({ places, childClicked }) => {
        </FormControl>
        <Grid container spacing={3} className={classes.list}>
         {places?.map((place, i) => (
-          <Grid ref={elRefs[i]} item key={i} xs={12}>
+          <Grid item key={i} xs={12}>
             <PlaceDetails 
             place={place}
-            selected={childClicked === i}
+            selected={Number(childClicked) === i}
             refProp={elRefs[i]}
             />
           </Grid>
 
         ))}
        </Grid>
+       </>
+       )}
      </div>
     
 
