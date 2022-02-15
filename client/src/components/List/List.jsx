@@ -1,14 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, createRef } from "react";
 import { CircularProgress, Grid, Typography, InputLabel, MenuItem, FormControl, Select } from "@material-ui/core";
 
 import useStyles  from './styles'
 import PlaceDetails from '../PlaceDetails/PlaceDetails.jsx'
 
 
-const List = ({places}) => {
+const List = ({ places, childClicked }) => {
    const classes = useStyles();
-   const [type, setType] = useState('')
-   const [rating, setRating] = useState('')
+   const [type, setType] = useState('');
+   const [rating, setRating] = useState('');
+
+   const [elRefs, setElRefs] = useState([]);
+
+   useEffect(() => {
+      const refs = Array(places.length).fill().map((_, i) => elRefs[i] || createRef());
+
+      setElRefs(refs);
+    }, [places]);
 
   //  const places = [
   //    {name: 'place1' },
@@ -44,8 +52,12 @@ const List = ({places}) => {
        </FormControl>
        <Grid container spacing={3} className={classes.list}>
         {places?.map((place, i) => (
-          <Grid item key={i} xs={12}>
-            <PlaceDetails place={place}/>
+          <Grid ref={elRefs[i]} item key={i} xs={12}>
+            <PlaceDetails 
+            place={place}
+            selected={childClicked === i}
+            refProp={elRefs[i]}
+            />
           </Grid>
 
         ))}
