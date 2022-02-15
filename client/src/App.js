@@ -10,7 +10,7 @@ import { getPlacesData } from './api';
 const App = () => {
   const [ places, setPlaces ] = useState();
   const [ coordinates, setCoordinates ] = useState({lat:0 , lng:0});
-  const [ bounds, setBounds] = useState(null);
+  const [ bounds, setBounds] = useState({ sw : null, ne : null });
 
   //Set the user's current location when we open the page first.
   useEffect(() => {
@@ -21,7 +21,7 @@ const App = () => {
 
   //Pass the coordinates to the axios call to get the data of it.
   useEffect(() => {
-    // console.log(coordinates,bounds);
+    console.log(coordinates,bounds);
     getPlacesData(bounds.sw, bounds.ne)
     .then((data) => {
       console.log(data);
