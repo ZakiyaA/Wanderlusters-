@@ -42,7 +42,7 @@ const Map = ({setCoordinates, setBounds, coordinates, places, setChildClicked, w
                   ) : 
                   (
                     <Paper elevation={3} className={classes.paper}>
-                      <Typography className={classes.typography} variant="subtitle2" gutterbottom> 
+                      <Typography className={classes.typography} variant="subtitle2" gutterBottom> 
                         {place.name}
                       </Typography>
                       <img className={classes.pointer}

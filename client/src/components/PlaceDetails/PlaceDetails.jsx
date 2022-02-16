@@ -33,7 +33,7 @@ const PlaceDetails = ({ place, selected, refProp }) => {
           <Typography gutterBottom variant="subtitle1">{place.ranking}</Typography>
         </Box>
         {place?.awards?.map((award) => (
-          <Box display="flex" justifyContent="space-between" alignItems="center">
+          <Box key={award.display_name} display="flex" justifyContent="space-between" alignItems="center">
               <img src={award.images.small} alt="award.display_name" />
               <Typography variant="subtitle2" color="textSecondary">{award.display_name}</Typography>
           </Box>
