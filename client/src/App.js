@@ -41,21 +41,22 @@ const App = () => {
 
   //Pass the coordinates to the axios call to get the data of it.
   useEffect(() => {
-    setIsLoading(true)
+    if(bounds.sw && bounds.ne) {
+      setIsLoading(true)
+      getWeatherData(coordinates.lat, coordinates.lng)
+      .then((data) => setWeatherData(data));
 
-    getWeatherData(coordinates.lat, coordinates.lng)
-    .then((data) => setWeatherData(data));
-
-    console.log(coordinates,bounds);
-    getPlacesData(type, bounds.sw, bounds.ne)
-    .then((data) => {
-      // console.log(data);
-      
-      setPlaces(data);
-      // setFilteredPlaces([]);
-      setIsLoading(false);
-    })
-  }, [type, coordinates, bounds]);
+      console.log(coordinates,bounds);
+      getPlacesData(type, bounds.sw, bounds.ne)
+      .then((data) => {
+        // console.log(data);
+        
+        setPlaces(data?. filter((place) => place.name && place.num_reviews > 0));
+        // setFilteredPlaces([]);
+        setIsLoading(false);
+      })
+  }
+  }, [type, bounds]);
 
   return(
   <>
