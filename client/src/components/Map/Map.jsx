@@ -4,6 +4,8 @@ import { Paper, Typography, useMediaQuery } from "@material-ui/core";
 import { Rating } from '@material-ui/lab';
 
 import useStyles from './styles';
+import mapStyles from './mapStyles';
+
 import { GoogleMap } from "@react-google-maps/api";
 import LocationOnOutlined from '@material-ui/icons/LocationOnOutlined';
 
@@ -20,7 +22,7 @@ const Map = ({setCoordinates, setBounds, coordinates, places, setChildClicked, w
           center={coordinates}
           defaultZoom={14}
           margin={[50, 50, 50, 50]}
-          options={''}
+          options={{ disableDefaultUI: true, zoomControl: true, styles: mapStyles}}
           onChange={(e) => {
             // console.log("coordinates & bounds in Map", e);
             setCoordinates({lat: e.center.lat, lng: e.center.lng});
