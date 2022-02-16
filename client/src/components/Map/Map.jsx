@@ -7,7 +7,7 @@ import useStyles from './styles';
 import { GoogleMap } from "@react-google-maps/api";
 import LocationOnOutlined from '@material-ui/icons/LocationOnOutlined';
 
-const Map = ({setCoordinates, setBounds, coordinates, places, setChildClicked}) => {
+const Map = ({setCoordinates, setBounds, coordinates, places, setChildClicked, weatherData}) => {
   const classes = useStyles();
   const isDesktop = useMediaQuery('(min-width:600px)');
   // const coordinates = { lat: 0, lng: 0 };
@@ -53,6 +53,11 @@ const Map = ({setCoordinates, setBounds, coordinates, places, setChildClicked}) 
                     </Paper>
                   )
                 }
+              </div>
+            ))}
+            {weatherData?.list?.map((data, i) => (
+              <div key={i} lat={data.coord.lat} lng={data.coord.lon}>
+                <img height={100} src={`https://openweathermap.org/img/w/${data.weather[0].icon}.png`} />
               </div>
             ))}
         </GoogleMapReact>

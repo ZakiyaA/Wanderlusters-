@@ -5,10 +5,11 @@ import Header from './components/Header/Header';
 import List from './components/List/List';
 import Map from './components/Map/Map';
 import PlaceDetails from './components/PlaceDetails/PlaceDetails';
-import { getPlacesData } from './api';
+import { getPlacesData, getWeatherData } from './api';
 
 const App = () => {
   const [ places, setPlaces ] = useState();
+  const [ weatherData, setWeatherData ] = useState();
   const [childClicked, setChildClicked] = useState(null);
   
   const [ coordinates, setCoordinates ] = useState({ lat:0, lng: 0});
@@ -28,6 +29,9 @@ const App = () => {
   //Pass the coordinates to the axios call to get the data of it.
   useEffect(() => {
     setIsLoading(true)
+
+    getWeatherData(coordinates.lat, coordinates.lng)
+    .then((data) => setWeatherData(data));
 
     console.log(coordinates,bounds);
     getPlacesData(type, bounds.sw, bounds.ne)
@@ -61,6 +65,7 @@ const App = () => {
             coordinates={coordinates}
             places={places}
             setChildClicked={setChildClicked}
+            weatherData={weatherData}
             />
          </Grid>
     </Grid>
