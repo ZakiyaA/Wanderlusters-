@@ -13,6 +13,7 @@ const Map = ({setCoordinates, setBounds, coordinates, places, setChildClicked, w
   const classes = useStyles();
   const isDesktop = useMediaQuery('(min-width:600px)');
   // const coordinates = { lat: 0, lng: 0 };
+  console.log({coordinates});
 
   return(
     <div className={classes.mapContainer}>
