@@ -50,6 +50,7 @@ const App = () => {
     getPlacesData(type, bounds.sw, bounds.ne)
     .then((data) => {
       // console.log(data);
+      
       setPlaces(data);
       // setFilteredPlaces([]);
       setIsLoading(false);
@@ -59,7 +60,7 @@ const App = () => {
   return(
   <>
     <CssBaseline />
-    <Header />
+    <Header setCoordinates={setCoordinates}/>
     <Grid container spacing={3} style={{ width: '100%' }}>
       <Grid item xs={12} md={4} >
         <List 
