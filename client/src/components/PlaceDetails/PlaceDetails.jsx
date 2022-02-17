@@ -9,10 +9,13 @@ import useStyles from "./styles";
 const PlaceDetails = ({ place, selected, refProp }) => {
   const classes = useStyles();
 
-  if(selected) refProp?.current?.scrollIntoView({ behaviour: 'smooth', block: 'start' })
+  if(selected) {
+    console.log("refprop", refProp)
+    refProp?.current?.scrollIntoView({ behaviour: 'smooth', block: 'start' })
+  } 
   
   return(
-    <Card elevation={6}>
+    <Card ref={refProp} elevation={6}>
       <CardMedia 
           style={{ height: 350 }}
           image={place.photo ? place.photo.images.large.url : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'}
