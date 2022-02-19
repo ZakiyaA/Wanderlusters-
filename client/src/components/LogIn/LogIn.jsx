@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import { email, required } from '../../models/validation';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
@@ -30,8 +30,20 @@ function SignIn() {
 		setData({ ...data, [input.name]: input.value });
 	};
 
+  const validate = (values) => {
+    const errors = required(['email', 'password'], values);
+
+    if (!errors.email) {
+      const emailError = email(values.email);
+      if (emailError) {
+        errors.email = emailError;
+      }
+    }
+
+    return errors;
+  };
+
   const handleSubmit = async (e) => {
-		// e.preventDefault();
     console.log("Login_Clicked", data);
 		try {
 			const url = "http://localhost:8080/users/Login";
@@ -40,18 +52,7 @@ function SignIn() {
 			localStorage.setItem("isLoggedIn", true);
 			localStorage.setItem("token", res.data.token);
       push({pathname: '/', state: {isLoggedIn: true, token: res.data.token}}) 
-			// window.location = "/";
-      // navigate(to, { state:{}, replace:false })
-      // navigate('/', {state:{token: res.data.token}})
 		} catch (error) {
-      console.log(error.response)
-			if (
-				error.response &&
-				error.response.status >= 400 &&
-				error.response.status <= 500
-			) {
-				setError(error.response.data.message);
-			}
 		}
 	};
 
@@ -102,6 +103,7 @@ function SignIn() {
             />
             <Button
               onClick={handleSubmit}
+              validate={validate}
               type="submit"
               fullWidth
               variant="contained"
@@ -110,11 +112,6 @@ function SignIn() {
               Sign In
             </Button>
             <Grid container>
-              {/* <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid> */}
               <Grid item>
                 <Link href="/SignUp" variant="body2">
                   {"Don't have an account? Sign Up"}

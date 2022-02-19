@@ -14,18 +14,6 @@ const List = ({ places, childClicked, isLoading, type, setType, rating, setRatin
       setElRefs(refs);
     }, [places]);
 
-  //  const places = [
-  //    {name: 'place1' },
-  //    {name: 'place2'},
-  //    {name: 'place3'},
-  //    {name: 'place4' },
-  //    {name: 'place5'},
-  //    {name: 'place6'},
-  //    {name: 'place6'},
-  //    {name: 'place8' },
-  //    {name: 'place9'},
-  //    {name: 'place10'},
-  //  ]
     return(
      <div className={classes.container}>
        <Typography variant="h4"> Restaurants, Hotels and Attractions around you</Typography>

@@ -13,6 +13,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react';
+import { email, required } from '../../models/validation';
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from '@material-ui/lab/AlertTitle';
 // import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -33,28 +36,40 @@ export default function SignUp() {
 		setData({ ...data, [input.name]: input.value });
 	};
 
+  const validate = (values) => {
+    const errors = required(['firstName', 'lastName', 'email', 'password'], values);
 
+    if (!errors.email) {
+      const emailError = email(values.email);
+      if (emailError) {
+        errors.email = emailError;
+      }
+    }
+
+    return errors;
+  };
 
 
   const handleSubmit = async (e) => {
 		// e.preventDefault();
-    if (data.email === "" || data.password === "") {
-      setError("An email or password needs to be entered.");
-    }
-    // console.log("handleSubmit", data);
+    // if (data.email === "" || data.password === "") {
+    //   setError("An email or password needs to be entered.");
+    // }
+    console.log("handleSubmit", data);
 		try {
 			const url = "http://localhost:8080/users/SignUp";
 			const res  = await axios.post(url, data);
       console.log("res", res.data)
-      if(res.status === 400) {
-        return setError(res);
-      }
+      // if(res.status === 400) {
+      //   return setError(res);
+      // }
 			// navigate("/login");
 			console.log(res);
 		} catch (error) {
+       console.error(error); }
       // console.log(error.response.data.message);
       // setError("An email or password needs to be entered.");
-		}
+		
 	};
 
   return (
@@ -75,7 +90,11 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit= {e => e.preventDefault()} sx={{ mt: 3 }}>
+          <Box component="form" noValidate 
+          
+          onSubmit= {e => e.preventDefault()} sx={{ mt: 3 }}>
+            validate={validate}
+          {/* <Alert severity="error">{ error }</Alert> */}
           <div>{ error }</div>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
