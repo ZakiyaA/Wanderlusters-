@@ -12,19 +12,12 @@ module.exports = (db) => {
   // Create a new user ...................
   router.post('/SignUp', async (req, res) => {
     const newUser = req.body;
-    console.log("userEmail", await getUserEmail(newUser.email));
-    //if email or password input is blank throw an error
-  // if (newUser.email === "" || newUser.password === "") {
-  //   return res.status(400).send("An email or password needs to be entered.");
-  // } 
    if (await getUserEmail(newUser.email) === newUser.email) {
-     console.log("newUser", newUser)
     return res.status(400).send("Email is already in use.");
   } //if email is already in use throw an error.....
   else {
     const salt = bcrypt.genSaltSync(12);
     newUser.password = bcrypt.hashSync(newUser.password, salt) 
-    // console.log("iiii",user.password);
     return(
        db.query(`INSERT INTO users(firstName, lastName, email, password) VALUES ($1, $2, $3, $4) RETURNING *;`,
       [newUser.firstName, newUser.lastName, newUser.email, newUser.password]))
@@ -83,7 +76,7 @@ module.exports = (db) => {
       })
       .catch(e => {
         console.log("error", e);
-        res.send(e);
+        // res.send(e);
       });
   });
   
