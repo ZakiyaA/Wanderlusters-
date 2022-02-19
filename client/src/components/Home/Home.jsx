@@ -1,6 +1,6 @@
 import React , {useState, useEffect} from 'react';
 import { Autocomplete } from '@react-google-maps/api';
-import { AppBar, Toolbar, Typography, InputBase, Box } from "@material-ui/core";
+import { AppBar, Toolbar, Typography, InputBase, Box, Card, CardMedia, Paper, Button } from "@material-ui/core";
 import SearchIcon  from "@material-ui/icons/Search";
 import { CssBaseline, Grid } from '@material-ui/core';
 // import useStyles from '../styles.js'
@@ -65,10 +65,11 @@ const Home = (props) => {
 return (
 
 <>
-<Navbar isLoggedIn={log}/>
- {log && (
+  <Navbar isLoggedIn={log}/>
+
+  {log && (
    <>
-<CssBaseline />
+    <CssBaseline />
 
     <Header setCoordinates={setCoordinates}/>
     <Grid container spacing={3} style={{ width: '100%' }}>
