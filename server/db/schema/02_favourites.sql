@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS favourites CASCADE;
+
+CREATE TABLE favourites (
+  id SERIAL PRIMARY KEY NOT NULL, 
+  location_id VARCHAR(255) NOT NULL,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  location_name VARCHAR(255) NOT NULL
+  );

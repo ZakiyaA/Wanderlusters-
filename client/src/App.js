@@ -6,6 +6,7 @@ import List from './components/List/List';
 import Map from './components/Map/Map';
 import PlaceDetails from './components/PlaceDetails/PlaceDetails';
 import { getPlacesData, getWeatherData } from './api';
+import Itenary from './components/Itenary/Itenary';
 
 const App = () => {
   const [ places, setPlaces ] = useState([]);
@@ -72,7 +73,7 @@ const App = () => {
           setRating={setRating}
         />
          </Grid>
-         <Grid item xs={12} md={8} >
+         <Grid item xs={12} md={4} >
            <Map 
             setCoordinates={setCoordinates}
             setBounds={setBounds}
@@ -82,6 +83,9 @@ const App = () => {
             weatherData={weatherData}
             />
          </Grid>
+         <Grid item xs={12} md={3} >
+           <Itenary />
+           </Grid>
     </Grid>
     </>
       
