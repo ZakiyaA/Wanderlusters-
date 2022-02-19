@@ -119,7 +119,7 @@ const Navbar = ({isLoggedIn}) => {
           <Link to={"/"}>Home</Link>
          </Button>
              <Button variant="contained" color="primary">
-          <Link to={"/Itenary"}>Itenary</Link>
+          <Link to={"/Itenary"}>Intinerary</Link>
          </Button>
              <Button variant="contained" color="primary"
              onClick={Logout}
