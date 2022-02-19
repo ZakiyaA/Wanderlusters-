@@ -1,9 +1,148 @@
 var express = require('express');
 var router = express.Router();
+const bcrypt = require('bcrypt');
+const {db, getUserWithEmail, getUserEmail} = require('../db.js');
+const { generateToken } = require('../utils/jwt.js');
+// const {getUserWithEmail} = require('../db.js');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
 
-module.exports = router;
+
+module.exports = (db) => {
+
+  // Create a new user ...................
+  router.post('/SignUp', async (req, res) => {
+    const newUser = req.body;
+    console.log("userEmail", await getUserEmail(newUser.email));
+    //if email or password input is blank throw an error
+  // if (newUser.email === "" || newUser.password === "") {
+  //   return res.status(400).send("An email or password needs to be entered.");
+  // } 
+   if (await getUserEmail(newUser.email) === newUser.email) {
+     console.log("newUser", newUser)
+    return res.status(400).send("Email is already in use.");
+  } //if email is already in use throw an error.....
+  else {
+    const salt = bcrypt.genSaltSync(12);
+    newUser.password = bcrypt.hashSync(newUser.password, salt) 
+    // console.log("iiii",user.password);
+    return(
+       db.query(`INSERT INTO users(firstName, lastName, email, password) VALUES ($1, $2, $3, $4) RETURNING *;`,
+      [newUser.firstName, newUser.lastName, newUser.email, newUser.password]))
+    .then(data => {
+      const users = data.rows;
+      res.json({ users });
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+  }
+  });
+
+  /**
+   * Check if a user exists with a given username and password
+   * @param {String} email
+   * @param {String} password encrypted
+   */
+  const login =  function(email, password) {
+    return getUserWithEmail(email)
+
+    .then(user => {
+      // console.clear();
+      // console.log({user});
+      if (bcrypt.compareSync(password, user.password)) {
+        return user;
+      }
+      return null;
+    });
+  }
+  exports.login = login;
+
+  router.post('/Login', (req, res) => {
+    const {email, password} = req.body;
+    login(email, password)
+      .then(user => {
+        // console.log("login", {user});
+        if (!user) {
+         
+          return res.status(401).json({error: "invalid email or password"});
+        }
+
+        // req.session.userId = user.user_id;
+        // console.log("seesionr", req.session)
+        res.redirect("/")
+        const token = generateToken(user);
+        const userInfo = {firstName: user.firstName, 
+                      firstName: user.lastName, 
+                      email: user.email, 
+                      user_id: user.user_id}
+                      console.log("tokenBackEnd", token)
+        return res.send({user: userInfo, token});
+
+      })
+      .catch(e => {
+        console.log("error", e);
+        res.send(e);
+      });
+  });
+  
+  router.post('/logout', (req, res) => {
+    req.session.userId = null;
+    res.send({});
+  });
+
+  router.get("/me", (req, res) => {
+    const userId = req.session.userId;
+    if (!userId) {
+      res.send({message: "not logged in"});
+      return;
+    }
+
+    db.getUserWithId(userId)
+      .then(user => {
+        if (!user) {
+          res.send({error: "no user with that id"});
+          return;
+        }
+    
+        res.send({user: {name: user.name, email: user.email, id: userId}});
+      })
+      .catch(e => res.send(e));
+  });
+
+
+  router.get("/", (req, res) => {
+    db.query(`SELECT * FROM users;`)
+      .then(data => {
+        const users = data.rows;
+        res.json({ users });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
+
+  router.get("/", (req, res) => {
+    const {user} = req.body;
+    db.query(`INSERT INTO users(name, email, password) VALUES ($1, $2, $3) RETERNING`,
+    [name, email, password])
+      .then(data => {
+        const users = data.rows;
+        res.json({ users });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
+
+  return router;
+}
+
+
+
+// module.exports = router;
