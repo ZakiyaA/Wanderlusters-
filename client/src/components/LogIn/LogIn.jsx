@@ -14,13 +14,15 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 
 const theme = createTheme();
 
-export default function SignIn() {
+function SignIn() {
+  // const navigate = useNavigate();
+  const {push} = useHistory();
   const [data, setData] = useState({ email: "", password: "" });
 	const [error, setError] = useState("");
 
@@ -35,8 +37,12 @@ export default function SignIn() {
 			const url = "http://localhost:8080/users/Login";
 			const res  = await axios.post(url, data);
       console.log("res in Login", res, res.status);
+			localStorage.setItem("isLoggedIn", true);
 			localStorage.setItem("token", res.data.token);
-			window.location = "/";
+      push({pathname: '/', state: {isLoggedIn: true, token: res.data.token}}) 
+			// window.location = "/";
+      // navigate(to, { state:{}, replace:false })
+      // navigate('/', {state:{token: res.data.token}})
 		} catch (error) {
       console.log(error.response)
 			if (
@@ -122,3 +128,5 @@ export default function SignIn() {
     </ThemeProvider>
   );
 }
+
+export default SignIn;

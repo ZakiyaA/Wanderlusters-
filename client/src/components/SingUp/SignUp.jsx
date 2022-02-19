@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -27,7 +27,7 @@ export default function SignUp() {
 		password: "",
 	});
 	const [error, setError] = useState("");
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 
 	const handleChange = ({ currentTarget: input }) => {
 		setData({ ...data, [input.name]: input.value });
@@ -49,7 +49,7 @@ export default function SignUp() {
       if(res.status === 400) {
         return setError(res);
       }
-			navigate("/login");
+			// navigate("/login");
 			console.log(res);
 		} catch (error) {
       // console.log(error.response.data.message);

@@ -9,9 +9,11 @@ import Header from '../Header/Header';
 import List from '../List/List';
 import Map from '../Map/Map';
 import { getPlacesData, getWeatherData } from '../../api';
+import Navbar from '../Navbar/Navbar';
 
-
-const Home = () => {
+const Home = (props) => {
+  const log = localStorage.getItem("isLoggedIn");
+  console.log("PROPS", props);
     const [ places, setPlaces ] = useState([]);
     const [filteredPlaces, setFilteredPlaces] = useState([]);
     const [ weatherData, setWeatherData ] = useState([]);
@@ -63,7 +65,11 @@ const Home = () => {
 return (
 
 <>
+<Navbar isLoggedIn={log}/>
+ {log && (
+   <>
 <CssBaseline />
+
     <Header setCoordinates={setCoordinates}/>
     <Grid container spacing={3} style={{ width: '100%' }}>
       <Grid item xs={12} md={4} >
@@ -89,6 +95,9 @@ return (
          </Grid>
     </Grid>
     </>
+)}
+    </>
+
     );
 }
 

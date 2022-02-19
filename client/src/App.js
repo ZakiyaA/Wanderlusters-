@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CssBaseline, Grid } from '@material-ui/core';
-import {BrowserRouter as Router, Link, Route, Routes} from 'react-router-dom';
+import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 import Header from './components/Header/Header';
 import List from './components/List/List';
 import Map from './components/Map/Map';
@@ -63,17 +63,17 @@ const App = () => {
   return(
   <>
   <Router>
-    <nav>
+    {/* <nav>
       <Link to="/">Home</Link>
       <Link to="/SignUp">SignUp</Link>
       <Link to="/LogIn">LogIn</Link>
-    </nav>
+    </nav> */}
     
-    <Routes>
-      <Route  path="/" element={ <Home />  }/>
-      <Route  path="/SignUp"  element={  <SignUp />   } />
-      <Route  path="/LogIn" element={   <LogIn />  } />
-    </Routes>
+    <Switch>
+      <Route exact path="/" component={Home}/>
+      <Route path="/SignUp"  component={SignUp} />
+      <Route  path="/LogIn" component={LogIn}/>
+    </Switch>
 
   </Router>
   
