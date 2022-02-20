@@ -1,11 +1,11 @@
 const Pool = require("pg").Pool;
 // const users = require('./json/users.json');
 const pool = new Pool({
-    user: "user_1",
+  
+    user: "postgres",
     host: "localhost",
-    port: 5433,
-    database: "wanderlusters",
-    password:"traveller123"
+    port: 5432,
+    database: "postgres"
 });
 
  /**
@@ -13,7 +13,7 @@ const pool = new Pool({
    * @param {string} id The id of the user.
    * @return {Promise<{}>} A promise to the user.
    */
- const getUserWithId = function (id) {
+ const getUserWithId = function(id) {
     const queryString = ` 
     SELECT *
     FROM users

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Grid, Typography, TextField, Button, Checkbox, FormControlLabel, Box, Paper, Card, CardMedia, CardContent} from '@material-ui/core';
 // import FormControlLabel from '@mui/material/FormControlLabel';
 import { Rating } from "@material-ui/lab";
@@ -30,6 +31,7 @@ const ItineraryForm = () => {
 		try {
 			const url = "http://localhost:8080/users/Itinerary";
 			const res  = await axios.post(url, data);
+			const res  = await axios.post(url, data, {headers: localStorage.token});
       console.log("res", res.data)
       if(res.status === 400) {
         return setError(res);
@@ -60,7 +62,9 @@ const ItineraryForm = () => {
     <>
     <Box component="form" noValidate onSubmit= {e => e.preventDefault()} sx={{ mt: 3 }}>
          <div>{ error }</div>
-    
+         <Button variant="contained" color="primary">
+          <Link to={"/"}>Home</Link>
+         </Button>
       <Card elevation={4} className={classes.container}>
          <Typography variant="h2" gutterBottom>
            Travel Intinerary
@@ -68,7 +72,7 @@ const ItineraryForm = () => {
       <CardMedia className={classes.media}
           style={{ height: 350 }}
           image={'https://source.unsplash.com/random'}
-          title="Travel Itenary"
+          title="Travel Itinerary"
       />
         <CardContent>
       <Grid container spacing={4}>
