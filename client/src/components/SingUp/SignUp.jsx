@@ -1,10 +1,9 @@
 import * as React from 'react';
+import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -17,7 +16,7 @@ import { email, required } from '../../models/validation';
 import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
 // import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+
 
 
 const theme = createTheme();
@@ -36,6 +35,7 @@ export default function SignUp() {
 		setData({ ...data, [input.name]: input.value });
 	};
 
+  
   const validate = (values) => {
     const errors = required(['firstName', 'lastName', 'email', 'password'], values);
 
@@ -47,10 +47,13 @@ export default function SignUp() {
     }
 
     return errors;
-  };
+  }; 
 
 
   const handleSubmit = async (e) => {
+
+
+    
 		// e.preventDefault();
     // if (data.email === "" || data.password === "") {
     //   setError("An email or password needs to be entered.");
