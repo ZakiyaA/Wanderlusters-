@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
 const bcrypt = require('bcrypt');
-const {db, getUserWithEmail, getUserEmail} = require('../db.js');
-const { generateToken } = require('../utils/jwt.js');
+const {db, getUserWithEmail, getUserEmail, getUserID} = require('../db.js');
+const { generateToken, decodeToken} = require('../utils/jwt.js');
+const { token } = require('morgan');
 // const {getUserWithEmail} = require('../db.js');
 
 
@@ -54,23 +55,27 @@ module.exports = (db) => {
 
   router.post('/Login', (req, res) => {
     const {email, password} = req.body;
+    console.log("login-------------", req.body)
     login(email, password)
       .then(user => {
+        // console.log("res in Login", res);
         // console.log("login", {user});
         if (!user) {
          
           return res.status(401).json({error: "invalid email or password"});
-        }
-
-        // req.session.userId = user.user_id;
-        // console.log("seesionr", req.session)
-        res.redirect("/")
+        } 
+        
+        console.log("userID", user);
+        req.session.user_id = user.user_id;
+        console.log("seesionr", req.session.user_id)
+        
         const token = generateToken(user);
         const userInfo = {firstName: user.firstName, 
                       firstName: user.lastName, 
                       email: user.email, 
-                      user_id: user.user_id}
+                      user_id: req.session.user_id}
                       console.log("tokenBackEnd", token)
+                      res.redirect("/")
         return res.send({user: userInfo, token});
 
       })
@@ -80,10 +85,7 @@ module.exports = (db) => {
       });
   });
   
-  router.post('/logout', (req, res) => {
-    req.session.userId = null;
-    res.send({});
-  });
+ 
 
   router.get("/me", (req, res) => {
     const userId = req.session.userId;
@@ -118,43 +120,45 @@ module.exports = (db) => {
       });
   });
 
-  router.get("/", (req, res) => {
-    const {user} = req.body;
-    db.query(`INSERT INTO users(name, email, password) VALUES ($1, $2, $3) RETERNING`,
-    [name, email, password])
-      .then(data => {
-        const users = data.rows;
-        res.json({ users });
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-  });
+  // router.get("/", (req, res) => {
+  //   const {user} = req.body;
+  //   db.query(`INSERT INTO users(name, email, password) VALUES ($1, $2, $3) RETERNING`,
+  //   [name, email, password])
+  //     .then(data => {
+  //       const users = data.rows;
+  //       res.json({ users });
+  //     })
+  //     .catch(err => {
+  //       res
+  //         .status(500)
+  //         .json({ error: err.message });
+  //     });
+  // });
 
 
   router.post('/Itinerary', async (req, res) => {
     const data = req.body;
     console.log("Dataataa", data)
-    const user_id = 1;
+    console.log("req.session", req.session);
+    // const guest_id = decodeToken(token);
+    const guest_id = req.session.user_id;
+    console.log("session in guest_id", guest_id)
+    // const user_id = 1;
     return(
        db.query(`INSERT INTO itinerary (placeName, guest_id, notes) VALUES ($1, $2, $3) RETURNING *;`,
-      [data.placeName, user_id, data.notes]))
+      [data.placeName, guest_id, data.notes]))
     .then(data => {
       const itinerary_data = data.rows;
       res.json({ itinerary_data });
-      console.log(itinerary_data);
+      console.log("itinerary_data", itinerary_data);
     })
     .catch(err => {
-      console.log("Error", err);
+      // console.log("Error", err);
       res
         .status(500)
         .json({ error: err.message });
       });
     });
-  
-
 
   return router;
 }

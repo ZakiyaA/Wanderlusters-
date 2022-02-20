@@ -113,8 +113,4 @@ const ItineraryItems = (placeName, notes, placeRating ) => {
     
 //   );
 // }
-<<<<<<< HEAD
 export default ItineraryItems;
-=======
-export default ItineraryItems;
->>>>>>> 37de3ed8e86a0b599c390050926a9fb28a2f57ba

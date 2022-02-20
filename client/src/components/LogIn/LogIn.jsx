@@ -45,15 +45,22 @@ function SignIn() {
 
   const handleSubmit = async (e) => {
     console.log("Login_Clicked", data);
+    // let user = JSON.parse(sessionStorage.getItem('data'));
+    //  const token = user.data.id;
+    //  console.log("token", token);
 		try {
 			const url = "http://localhost:8080/users/Login";
-			const res  = await axios.post(url, data);
-      console.log("res in Login", res, res.status);
-			localStorage.setItem("isLoggedIn", true);
-			localStorage.setItem("token", res.data.token);
-      console.log("TOKEN", res.data.token);
-      push({pathname: '/', state: {isLoggedIn: true, token: res.data.token}}) 
+			const res  = await axios.post(url, data)
+         .then(res => {
+          // console.log("res in Login", JSON.parse(sessionStorage.getItem('data')));
+          localStorage.setItem("isLoggedIn", true);
+          localStorage.setItem("token", res.data.token);
+          console.log("TOKEN front End", res.data.token);
+          push({pathname: '/', state: {isLoggedIn: true, token: res.data.token}}) 
+         })
+      
 		} catch (error) {
+      console.log(error);
 		}
 	};
 

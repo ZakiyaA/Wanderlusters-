@@ -1,7 +1,9 @@
 const jwt = require('jsonwebtoken');
+
+
 const JWT_SECRET_KEY= '12345';
 const generateToken = function(user){
-var token = jwt.sign({ userId: user.user_id }, JWT_SECRET_KEY, { expiresIn: '1d'});
+var token = jwt.sign({ userId: user.user_id }, JWT_SECRET_KEY, { expiresIn: '10d'});
 return token;
 }
 

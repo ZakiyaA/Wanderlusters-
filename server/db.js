@@ -56,7 +56,7 @@ const pool = new Pool({
       console.clear();
       // console.log("res in getEmail", res.rows[0])
       if(res.rows[0]){
-        console.log("gitEmail", res.rows[0].email)
+        // console.log("gitID", res.rows[0].user_id)
       return res.rows[0];
       } else { 
       return null;
@@ -68,6 +68,34 @@ const pool = new Pool({
   }
 
 
+  /**
+ * Get a single user from the database given their email.
+ * @param {String} email The email of the user.
+ * @return {Promise<{}>} A promise to the user.
+ */
+   const getUserID = function (email) {
+    const queryString = ` 
+      SELECT  user_id, firstName, email, password 
+      FROM users
+      WHERE email = $1;
+        `;
+      const values = [email]  
+    return pool
+    .query(queryString, values)
+      .then(res => {
+        console.clear();
+        // console.log("res in getEmail", res.rows[0])
+        if(res.rows[0]){
+          // console.log("gitID", res.rows[0].user_id)
+        return res.rows[0].user_id;
+        } else { 
+        return null;
+        }
+      })
+      .catch(err => {
+        console.error('query error', err.stack);
+      });
+    }
 
 
     /**
@@ -88,7 +116,7 @@ const pool = new Pool({
           // console.clear();
           // console.log("res in getEmail", res.rows[0])
           if(res.rows[0]){
-           console.log("xxx", res.rows[0].email);
+           console.log("xxx", res.rows[0].user_id);
           return res.rows[0].email;
           } else { 
           return null;
@@ -147,4 +175,4 @@ const pool = new Pool({
   exports.getAllPlaces = getAllPlaces;
 
 
-module.exports = {db: pool, getUserWithEmail, getUserEmail};
+module.exports = {db: pool, getUserWithEmail, getUserEmail, getUserID};

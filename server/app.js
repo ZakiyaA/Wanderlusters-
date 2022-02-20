@@ -1,7 +1,7 @@
 var express = require('express');
 var path = require('path');
 var cors = require('cors')
-// var cookieParser = require('cookie-parser');
+var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const PORT = 8080;
 var indexRouter = require('./routes/index');
@@ -16,8 +16,16 @@ app.use(
   cookieSession({
     name: 'session',
     keys: ['e1d50c4f-538a-4682-89f4-c002f10a59c8', '2d310699-67d3-4b26-a3a4-1dbf2b67be5c'],
+    cookie: {  }
+    // rolling: true,                     resave: true, 
   })
 );
+
+
+app.use(function(req, res, next) { res.locals.user_id = req.session.user_id;     
+   next(); });
+
+  
 
 app.use(cors());
 
