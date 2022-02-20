@@ -71,7 +71,7 @@ const ItineraryForm = () => {
       <CardMedia className={classes.media}
           style={{ height: 350 }}
           image={'https://source.unsplash.com/random'}
-          title="Travel Itenary"
+          title="Travel Itinerary"
       />
         <CardContent>
       <Grid container spacing={4}>
