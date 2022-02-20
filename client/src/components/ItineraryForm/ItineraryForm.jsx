@@ -3,14 +3,13 @@ import { Grid, Typography, TextField, Button, Checkbox, FormControlLabel, Box, P
 // import FormControlLabel from '@mui/material/FormControlLabel';
 import { Rating } from "@material-ui/lab";
 import useStyles  from './styles'
+import axios from 'axios';
 
-
-const IntineraryForm = () => {
+const ItineraryForm = () => {
   const classes = useStyles();
   const [data, setData] = useState({
 		placeName: "",
 		notes: "",
-		placeRating: ""
 	});
   const [error, setError] = useState("");
   // const [placeRating, setPlaceRating] = useState(0);
@@ -24,13 +23,13 @@ const IntineraryForm = () => {
 
   const handleSubmit = async (e) => {
 		// e.preventDefault();
-    if (data.placeName === "" || data.notes === "" || data.placeRating === "") {
+    if (data.placeName === "" || data.notes === "" ) {
       setError("A place name, notes and rating must be entered.");
     }
     // console.log("handleSubmit", data);
 		try {
 			const url = "http://localhost:8080/users/Itinerary";
-			const res  = await axios.post(url, data);
+			const res  = await axios.post(url, data, {headers: localstoragetokemn});
       console.log("res", res.data)
       if(res.status === 400) {
         return setError(res);
@@ -105,11 +104,11 @@ const IntineraryForm = () => {
             Rating
           </Typography>
      
-        <FormControlLabel  
+        {/* <FormControlLabel  
           control={ 
           <Rating 
             name="simple-controlled"
-            value={placeRating}
+            value="placeRating"
             required
             onChange={handleChange}
             // onChange={(event, newValue) => {
@@ -118,7 +117,7 @@ const IntineraryForm = () => {
             />
           }
          >
-          </FormControlLabel>
+          </FormControlLabel> */}
         </Grid>
         <Grid item xs={12}>
           {/* <FormControlLabel
@@ -158,4 +157,4 @@ const IntineraryForm = () => {
     
   );
 }
-export default Form;
+export default ItineraryForm;

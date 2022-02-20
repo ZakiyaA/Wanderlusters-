@@ -5,7 +5,7 @@ import { Rating } from "@material-ui/lab";
 import useStyles  from '../Form/styles'
 
 
-const NoteItems = (placeName, notes, placeRating ) => {
+const ItineraryItems = (placeName, notes, placeRating ) => {
   const classes = useStyles();
   return ( 
     <Card sx={{ maxWidth: 345 }}>
@@ -113,4 +113,4 @@ const NoteItems = (placeName, notes, placeRating ) => {
     
 //   );
 // }
-export default NoteItems;
+export default ItineraryItems;

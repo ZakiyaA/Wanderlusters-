@@ -51,6 +51,7 @@ function SignIn() {
       console.log("res in Login", res, res.status);
 			localStorage.setItem("isLoggedIn", true);
 			localStorage.setItem("token", res.data.token);
+      console.log(res.data.token);
       push({pathname: '/', state: {isLoggedIn: true, token: res.data.token}}) 
 		} catch (error) {
 		}

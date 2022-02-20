@@ -7,7 +7,7 @@ import Map from './components/Map/Map';
 import PlaceDetails from './components/PlaceDetails/PlaceDetails';
 import SignUp from './components/SingUp/SignUp';
 import LogIn from './components/LogIn/LogIn';
-import Itenary from "./components/Itenary/Itenary";
+import ItineraryForm from "./components/ItineraryForm/ItineraryForm";
 
 import Home from  './components/Home/Home'
 
@@ -19,7 +19,7 @@ const App = () => {
   <Router> 
     <Switch>
       <Route exact path="/" component={Home}/>
-      <Route  path="/Itenary" component={Itenary}/>
+      <Route  path="/Itenary" component={ItineraryForm}/>
       <Route path="/SignUp"  component={SignUp} />
       <Route  path="/LogIn" component={LogIn}/>
     </Switch>
