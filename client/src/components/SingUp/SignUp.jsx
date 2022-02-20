@@ -59,6 +59,7 @@ export default function SignUp() {
 		try {
 			const url = "http://localhost:8080/users/SignUp";
 			const res  = await axios.post(url, data);
+      this.history.push("/login");
       console.log("res", res.data)
       // if(res.status === 400) {
       //   return setError(res);
