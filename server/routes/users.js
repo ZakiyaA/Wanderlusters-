@@ -133,9 +133,15 @@ module.exports = (db) => {
       });
   });
 
+<<<<<<< HEAD
   router.post('/Itinerary', async (req, res) => {
     const data = req.body;
     getUserEmail();
+=======
+
+  router.post('/Itinerary', async (req, res) => {
+    const data = req.body;
+>>>>>>> main
     console.log("Dataataa", data)
     const user_id = 1;
     return(
@@ -153,6 +159,12 @@ module.exports = (db) => {
         .json({ error: err.message });
       });
     });
+<<<<<<< HEAD
+=======
+  
+
+
+>>>>>>> main
   return router;
 }
 

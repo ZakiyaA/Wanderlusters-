@@ -10,7 +10,7 @@ const PlaceDetails = ({ place, selected, refProp }) => {
   const classes = useStyles();
 
   if(selected) {
-    console.log("refprop", refProp)
+    // console.log("refprop", refProp);
     refProp?.current?.scrollIntoView({ behaviour: 'smooth', block: 'start' })
   } 
   

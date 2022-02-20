@@ -55,10 +55,11 @@ export default function SignUp() {
     // if (data.email === "" || data.password === "") {
     //   setError("An email or password needs to be entered.");
     // }
-    console.log("handleSubmit", data);
+    // console.log("handleSubmit", data);
 		try {
 			const url = "http://localhost:8080/users/SignUp";
 			const res  = await axios.post(url, data);
+      this.history.push("/login");
       console.log("res", res.data)
       // if(res.status === 400) {
       //   return setError(res);
