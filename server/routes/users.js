@@ -133,6 +133,29 @@ module.exports = (db) => {
       });
   });
 
+
+  router.post('/Itinerary', async (req, res) => {
+    const data = req.body;
+    console.log("Dataataa", data)
+    const user_id = 1;
+    return(
+       db.query(`INSERT INTO itinerary (placeName, guest_id, notes) VALUES ($1, $2, $3) RETURNING *;`,
+      [data.placeName, user_id, data.notes]))
+    .then(data => {
+      const itinerary_data = data.rows;
+      res.json({ itinerary_data });
+      console.log(itinerary_data);
+    })
+    .catch(err => {
+      console.log("Error", err);
+      res
+        .status(500)
+        .json({ error: err.message });
+      });
+    });
+  
+
+
   return router;
 }
 

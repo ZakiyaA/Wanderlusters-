@@ -1,10 +1,11 @@
 const Pool = require("pg").Pool;
 // const users = require('./json/users.json');
 const pool = new Pool({
-    user: "escuela_user",
+    user: "user_1",
     host: "localhost",
-    port: 5432,
-    database: "wanderlusters"
+    port: 5433,
+    database: "wanderlusters",
+    password:"traveller123"
 });
 
  /**
