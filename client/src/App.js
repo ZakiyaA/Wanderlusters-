@@ -15,10 +15,10 @@ const App = () => {
   <>
   <Router> 
     <Switch>
-      <Route exact path="/" component={Home}/>
-      <Route  path="/Itenary" component={ItineraryForm}/>
-      <Route path="/SignUp"  component={SignUp} />
-      <Route  path="/LogIn" component={LogIn}/>
+      <Route  exact path="/"    component={Home}/>
+      <Route  path="/Itinerary" component={ItineraryForm}/>
+      <Route  path="/SignUp"    component={SignUp} />
+      <Route  path="/LogIn"     component={LogIn}/>
     </Switch>
   </Router>
     </> 

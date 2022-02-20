@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Navbar = ({isLoggedIn}) => {
-  const pages = ['HOME', 'Itenary'];
+  const pages = ['HOME', 'Itinerary'];
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -108,7 +108,7 @@ const Navbar = ({isLoggedIn}) => {
              <Button 
                 variant="contained" 
                 color="primary">
-          <Link to={"/Itenary"}>Intinerary</Link>
+          <Link to={"/Itinerary"}>Intinerary</Link>
          </Button>
              <Button 
                 variant="contained" 

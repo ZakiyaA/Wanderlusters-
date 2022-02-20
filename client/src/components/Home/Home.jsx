@@ -15,16 +15,13 @@ const Home = (props) => {
     const [ places, setPlaces ] = useState([]);
     const [filteredPlaces, setFilteredPlaces] = useState([]);
     const [ weatherData, setWeatherData ] = useState([]);
-    const [childClicked, setChildClicked] = useState(null);
-    
+    const [ childClicked, setChildClicked ] = useState(null);
     const [ coordinates, setCoordinates ] = useState({});
     const [ bounds, setBounds] = useState({sw: null, ne: null});
-  
     const [ isLoading, setIsLoading ] = useState(false);
-    const [type, setType] = useState('hotels');
-    const [rating, setRating] = useState('3');
+    const [ type, setType ] = useState('hotels');
+    const [ rating, setRating ] = useState('3');
   
-    
     //Set the user's current location when we open the page first.
     useEffect(() => {
       navigator.geolocation.getCurrentPosition(({ coords: { latitude, longitude}}) => {
@@ -37,7 +34,6 @@ const Home = (props) => {
       const filtered = places && places.filter((place) => Number(place.rating) > rating);
       setFilteredPlaces(filtered);
     }, [rating]);
-  
   
     //Pass the coordinates to the axios call to get the data of it.
     useEffect(() => {

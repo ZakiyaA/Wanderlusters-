@@ -1,25 +1,23 @@
 var express = require('express');
 var router = express.Router();
 
-
 module.exports = (db) => {
 
-  router.post('/Itinerary', async (req, res) => {
+  router.post('/Itinerary', async(req, res) => {
     const data = req.body;
     const user_id = req.params;
-    return(
-       db.query(`INSERT INTO itinerary (placeName, user_id, notes) VALUES ($1, $2, $3) RETURNING *;`,
-      [data.placeName, user_id, data.notes]))
-    .then(data => {
-      const itinerary = data.rows;
-      res.json({ itinerary });
-      console.log(itinerary);
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
+    return (
+      db.query(`INSERT INTO itinerary (placeName, user_id, notes) VALUES ($1, $2, $3) RETURNING *;`,
+        [data.placeName, user_id, data.notes]))
+      .then(data => {
+        const itinerary = data.rows;
+        res.json({ itinerary });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
       });
-    });
-  };
+  });
+};
   

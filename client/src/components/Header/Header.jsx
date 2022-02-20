@@ -13,7 +13,6 @@ const Header = ({setCoordinates}) => {
     const onPlaceChanged = () => {
       const lat = autocomplete.getPlace().geometry.location.lat();
       const lng = autocomplete.getPlace().geometry.location.lng();
-      console.log("lat&lng", lat, lng);
       setCoordinates({ lat, lng });
     }
     return(

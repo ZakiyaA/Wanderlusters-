@@ -47,7 +47,6 @@ export default function SignUp() {
     return errors;
   };
 
-
   const handleSubmit = async (e) => {
 
 		try {
@@ -56,6 +55,7 @@ export default function SignUp() {
       this.history.push("/login");
 		} catch (error) {
      console.log(error);
+    }
 	};
 
   return (
@@ -74,7 +74,7 @@ export default function SignUp() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Sign Up
           </Typography>
           <Box component="form" noValidate 
           
@@ -151,5 +151,4 @@ export default function SignUp() {
       </Container>
     </ThemeProvider>
   )
-  }
 };
