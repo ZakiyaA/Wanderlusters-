@@ -16,7 +16,6 @@ import { useState } from 'react';
 import { email, required } from '../../models/validation';
 import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
-// import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -30,7 +29,6 @@ export default function SignUp() {
 		password: "",
 	});
 	const [error, setError] = useState("");
-	// const navigate = useNavigate();
 
 	const handleChange = ({ currentTarget: input }) => {
 		setData({ ...data, [input.name]: input.value });
@@ -51,26 +49,13 @@ export default function SignUp() {
 
 
   const handleSubmit = async (e) => {
-		// e.preventDefault();
-    // if (data.email === "" || data.password === "") {
-    //   setError("An email or password needs to be entered.");
-    // }
-    // console.log("handleSubmit", data);
+
 		try {
 			const url = "http://localhost:8080/users/SignUp";
 			const res  = await axios.post(url, data);
       this.history.push("/login");
-      console.log("res", res.data)
-      // if(res.status === 400) {
-      //   return setError(res);
-      // }
-			// navigate("/login");
-			console.log(res);
 		} catch (error) {
-       console.error(error); }
-      // console.log(error.response.data.message);
-      // setError("An email or password needs to be entered.");
-		
+     console.log(error);
 	};
 
   return (
@@ -95,7 +80,6 @@ export default function SignUp() {
           
           onSubmit= {e => e.preventDefault()} sx={{ mt: 3 }}>
             validate={validate}
-          {/* <Alert severity="error">{ error }</Alert> */}
           <div>{ error }</div>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
@@ -144,12 +128,7 @@ export default function SignUp() {
                   autoComplete="new-password"
                 />
               </Grid>
-              {/* <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid> */}
+        
             </Grid>
             <Button
               onClick={handleSubmit}
@@ -163,14 +142,14 @@ export default function SignUp() {
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/LogIn" variant="body2">
-                  Already have an account? Sign in
+                  Already have an account? Sign In
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        {/* <Copyright sx={{ mt: 5 }} /> */}
       </Container>
     </ThemeProvider>
-  );
-}
+  )
+  }
+};

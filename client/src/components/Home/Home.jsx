@@ -3,7 +3,6 @@ import { Autocomplete } from '@react-google-maps/api';
 import { AppBar, Toolbar, Typography, InputBase, Box, Card, CardMedia, Paper, Button } from "@material-ui/core";
 import SearchIcon  from "@material-ui/icons/Search";
 import { CssBaseline, Grid } from '@material-ui/core';
-// import useStyles from '../styles.js'
 import Search from '@material-ui/icons/Search';
 import Header from '../Header/Header';
 import List from '../List/List';
@@ -13,7 +12,6 @@ import Navbar from '../Navbar/Navbar';
 
 const Home = (props) => {
   const log = localStorage.getItem("isLoggedIn");
-  console.log("PROPS", props);
     const [ places, setPlaces ] = useState([]);
     const [filteredPlaces, setFilteredPlaces] = useState([]);
     const [ weatherData, setWeatherData ] = useState([]);
@@ -36,7 +34,6 @@ const Home = (props) => {
   
     // To filter places according to the rating
     useEffect(() => {
-      console.log("Is this working");
       const filtered = places && places.filter((place) => Number(place.rating) > rating);
       setFilteredPlaces(filtered);
     }, [rating]);
@@ -49,18 +46,13 @@ const Home = (props) => {
         getWeatherData(coordinates.lat, coordinates.lng)
         .then((data) => setWeatherData(data));
   
-        console.log(coordinates,bounds);
         getPlacesData(type, bounds.sw, bounds.ne)
         .then((data) => {
-          // console.log(data);
-          
           setPlaces(data?. filter((place) => place.name && place.num_reviews > 0));
-          // setFilteredPlaces([]);
           setIsLoading(false);
         })
     }
     }, [type, bounds]);
-
 
 return (
 

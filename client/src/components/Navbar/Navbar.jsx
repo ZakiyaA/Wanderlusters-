@@ -3,21 +3,14 @@ import Button from '@mui/material/Button';
 import { Link} from 'react-router-dom';
 import Logout from '../LogOut/LogOut';
 import {AppBar, Toolbar, CssBaseline, Typography, makeStyles} from "@material-ui/core";
-
-
 import Box from '@mui/material/Box';
-
 import IconButton from '@mui/material/IconButton';
-
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-
-
 
 const useStyles = makeStyles((theme) => ({
   navlinks: {
@@ -42,11 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = ({isLoggedIn}) => {
   const pages = ['HOME', 'Itenary'];
-  // const settings = ['Home', 'Itenary', 'Dashboard', 'Logout'];
 
- 
-  
-  
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
   
@@ -65,8 +54,6 @@ const Navbar = ({isLoggedIn}) => {
       setAnchorElUser(null);
     };
 
-
-  console.log({isLoggedIn})
   const classes = useStyles();
   if (isLoggedIn) {
   return(
@@ -118,12 +105,15 @@ const Navbar = ({isLoggedIn}) => {
              <Button variant="contained" color="primary">
           <Link to={"/"}>Home</Link>
          </Button>
-             <Button variant="contained" color="primary">
+             <Button 
+                variant="contained" 
+                color="primary">
           <Link to={"/Itenary"}>Intinerary</Link>
          </Button>
-             <Button variant="contained" color="primary"
-             onClick={Logout}
-                //  onClick={handleSubmit}
+             <Button 
+                variant="contained" 
+                color="primary"
+                onClick={Logout}
                 type="submit"
                 > LogOut </Button>
           </Box>
@@ -143,7 +133,7 @@ const Navbar = ({isLoggedIn}) => {
         <CssBaseline />
         <Toolbar>
           <Typography variant="h4" className={classes.logo}>
-          Wanderlusters
+          🌐Wanderlusters
           </Typography>
             <div className={classes.navlinks}>
               <Link to="/About" className={classes.link}>

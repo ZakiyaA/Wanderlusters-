@@ -1,11 +1,8 @@
-import axios from 'axios';
-
-// const options = 
+import axios from 'axios'; 
 
 //Passing the bounds to the function.
 export const getPlacesData = async (type, sw, ne) => {
   try {
-    console.log('typeinindex', type)
     const { data: {data} } = await axios.get(`https://travel-advisor.p.rapidapi.com/${type}/list-in-boundary`, {
       params: {
         bl_latitude: sw.lat,

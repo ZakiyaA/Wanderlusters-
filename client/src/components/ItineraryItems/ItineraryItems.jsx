@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Typography, TextField, Button, Checkbox, FormControlLabel, Paper, Card, CardMedia, CardContent,CardActionArea, CardActions, Box} from '@material-ui/core';
-// import FormControlLabel from '@mui/material/FormControlLabel';
 import { Rating } from "@material-ui/lab";
 import useStyles  from '../Form/styles'
 
@@ -38,79 +37,4 @@ const ItineraryItems = (placeName, notes, placeRating ) => {
   
   );
 }
-//   return (
-     
-//       <Card elevation={5} className={classes.container}>
-//       <CardMedia className={classes.media}
-//           style={{ height: 350 }}
-//           image={'https://source.unsplash.com/random'}
-//           title="Travel Itenary"
-//       />
-//         <CardContent>
-//       <Grid container spacing={4}>
-//         <Grid item xs={12} sm={12}>
-//           <TextField
-//             id="placeName"
-//             name="placeName"
-//             label="Place name"
-//             fullWidth
-//             variant="standard"
-//             onChange={(e) => setPlaceName(e.target.value)}
-
-//             />
-//         </Grid>
-//         <Grid item xs={12}>
-//           <TextField
-//             id="notes"
-//             name="notes"
-//             label="Notes"
-//             fullWidth
-//             variant="outlined"
-//             fullWidth multiline rows={4}
-//             onChange={(e) => setNotes(e.target.value)}
-//             />
-        
-//         </Grid>
-//         <Grid item  xs={12}>
-//           <Typography variant="subtitle1">
-//             Rating
-//           </Typography>
-     
-//         <FormControlLabel  
-//           control={ 
-//           <Rating 
-//             name="simple-controlled"
-//             value={placeRating}
-//             onChange={(event, newValue) => {
-//               setPlaceRating(newValue);
-//             }}            
-//             />
-//           }
-//          >
-//           </FormControlLabel>
-//         </Grid>
-//         <Grid item xs={12}>
-//           {/* <FormControlLabel
-//           control={ 
-//           <Checkbox 
-//           checked={checked}
-//           onChange={(e) => setChecked(e.target.checked)}
-//           color="secondary"      
-//           />
-//           }
-//           label="Completed?">
-//           </FormControlLabel> */}
-//            <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
-        
-//               {/* <Button variant="contained">{ done ? 'not visited' : 'visited?'} </Button> */}
-//               {/* <Button variant="contained">Delete</Button> */}
-         
-//         </Grid>
-//       </Grid>
-//       </CardContent>
-// </Card>
-    
-    
-//   );
-// }
 export default ItineraryItems;

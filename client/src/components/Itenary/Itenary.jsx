@@ -14,7 +14,7 @@ export default function Itenary() {
   return (
     <>
       <Typography variant="h2" gutterBottom>
-        Travel Itenary
+        Travel Itinerary
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={12}>

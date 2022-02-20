@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Typography, TextField, Button, Checkbox, FormControlLabel, Box, Paper, Card, CardMedia, CardContent} from '@material-ui/core';
-// import FormControlLabel from '@mui/material/FormControlLabel';
 import { Rating } from "@material-ui/lab";
 import useStyles  from './styles'
 import axios from 'axios';
@@ -27,38 +26,17 @@ const ItineraryForm = () => {
     if (data.placeName === "" || data.notes === "" ) {
       setError("A place name, notes and rating must be entered.");
     }
-    // console.log("handleSubmit", data);
 		try {
 			const url = "http://localhost:8080/users/Itinerary";
       data.token = localStorage.getItem("token");
-      console.log("LocalStorageData", data)
-			// const res  = await axios.post(url, data);
 			const res  = await axios.post(url, data);
-      //, {headers: localStorage.getItem("token")}
       if(res.status === 400) {
         return setError(res);
       }
-			// navigate("/login");
-			console.log(res);
 		} catch (error) {
-      // console.log(error.response.data.message);
-      // setError("An email or password needs to be entered.");
+ 
 		}
 	};
-  // useEffect(() => {
-  //   setNotes(notes);
-  // },[notes])
-  // useEffect(() => {
-  //   setPlaceName(placeName);
-  // },[placeName])
-  // useEffect(() => {
-  //   setPlaceRating(placeRating);
-  // },[placeRating])
-
-
-  // useEffect(() => {
-  //   setChecked(checked)
-  // },[checked])
   
   return (
     <>
@@ -69,7 +47,7 @@ const ItineraryForm = () => {
          </Button>
       <Card elevation={4} className={classes.container}>
          <Typography variant="h2" gutterBottom>
-           Travel Intinerary
+         🌐Travel Intinerary
       </Typography>
       <CardMedia className={classes.media}
           style={{ height: 350 }}
@@ -109,33 +87,8 @@ const ItineraryForm = () => {
           <Typography variant="subtitle1">
             Rating
           </Typography>
-     
-        {/* <FormControlLabel  
-          control={ 
-          <Rating 
-            name="simple-controlled"
-            value="placeRating"
-            required
-            onChange={handleChange}
-            // onChange={(event, newValue) => {
-            //   setPlaceRating(newValue);
-            // }}            
-            />
-          }
-         >
-          </FormControlLabel> */}
         </Grid>
         <Grid item xs={12}>
-          {/* <FormControlLabel
-          control={ 
-          <Checkbox 
-          checked={checked}
-          onChange={(e) => setChecked(e.target.checked)}
-          color="secondary"      
-          />
-          }
-          label="Completed?">
-          </FormControlLabel> */}
           <Button
               className={classes.buttonSubmit}
               onClick={handleSubmit}
@@ -148,11 +101,6 @@ const ItineraryForm = () => {
             >
               SUBMIT
             </Button >
-           
-        
-              {/* <Button variant="contained">{ done ? 'not visited' : 'visited?'} </Button> */}
-              {/* <Button variant="contained">Delete</Button> */}
-         
         </Grid>
       </Grid>
       </CardContent>
