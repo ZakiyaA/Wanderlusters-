@@ -30,9 +30,11 @@ const ItineraryForm = () => {
     // console.log("handleSubmit", data);
 		try {
 			const url = "http://localhost:8080/users/Itinerary";
+      data.token = localStorage.getItem("token");
+      console.log("LocalStorageData", data)
+			// const res  = await axios.post(url, data);
 			const res  = await axios.post(url, data);
-			const res  = await axios.post(url, data, {headers: localStorage.token});
-      console.log("res", res.data)
+      //, {headers: localStorage.getItem("token")}
       if(res.status === 400) {
         return setError(res);
       }
