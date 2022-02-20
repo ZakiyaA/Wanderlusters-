@@ -4,7 +4,8 @@ const pool = new Pool({
     user: "escuela_user",
     host: "localhost",
     port: 5432,
-    database: "wanderlusters"
+    database: "wanderlusters",
+    // password:"traveller123"
 });
 
  /**

@@ -21,6 +21,7 @@ const ItineraryForm = () => {
 	};
 
   const handleSubmit = async (e) => {
+		// e.preventDefault();
     if (data.placeName === "" || data.notes === "" ) {
       setError("A place name, notes and rating must be entered.");
     }
