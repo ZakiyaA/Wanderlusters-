@@ -8,7 +8,7 @@ import PlaceDetails from './components/PlaceDetails/PlaceDetails';
 import SignUp from './components/SingUp/SignUp';
 import LogIn from './components/LogIn/LogIn';
 import ItineraryForm from "./components/ItineraryForm/ItineraryForm";
-
+import ItineraryItems from "./components/ItineraryItems/ItineraryItems"
 import Home from  './components/Home/Home'
 
 // import { getPlacesData, getWeatherData } from './api';
@@ -19,7 +19,7 @@ const App = () => {
   <Router> 
     <Switch>
       <Route exact path="/" component={Home}/>
-      <Route  path="/Itenary" component={ItineraryForm}/>
+      <Route  path="/Itenary" component={ItineraryForm} />
       <Route path="/SignUp"  component={SignUp} />
       <Route  path="/LogIn" component={LogIn}/>
     </Switch>

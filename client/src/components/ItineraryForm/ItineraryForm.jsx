@@ -1,50 +1,75 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Grid, Typography, TextField, Button, Checkbox, FormControlLabel, Box, Paper, Card, CardMedia, CardContent} from '@material-ui/core';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  Grid,
+  Typography,
+  TextField,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Box,
+  Paper,
+  Card,
+  CardMedia,
+  CardContent,
+} from "@material-ui/core";
 // import FormControlLabel from '@mui/material/FormControlLabel';
 import { Rating } from "@material-ui/lab";
-import useStyles  from './styles'
-import axios from 'axios';
+import useStyles from "./styles";
+import axios from "axios";
+import ItineraryItems from "../ItineraryItems/ItineraryItems";
 
 const ItineraryForm = () => {
   const classes = useStyles();
   const [data, setData] = useState({
-		placeName: "",
-		notes: "",
-	});
+    placeName: "",
+    notes: "",
+  });
   const [error, setError] = useState("");
+
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    Promise.all([axios.get("/users/itinerary")]).then((res) => {
+      console.log("res.[]", res[0].data.itineraryItems);
+
+      setItems(res[0].data.itineraryItems);
+    });
+  }, []);
   // const [placeRating, setPlaceRating] = useState(0);
   // const [placeName, setPlaceName]= useState('');
   // const [notes, setNotes]= useState('');
   // const [checked, setChecked]= useState(false);
 
   const handleChange = ({ currentTarget: input }) => {
-		setData({ ...data, [input.name]: input.value });
-	};
+    setData({ ...data, [input.name]: input.value });
+  };
 
   const handleSubmit = async (e) => {
-		// e.preventDefault();
-    if (data.placeName === "" || data.notes === "" ) {
+    // e.preventDefault();
+    if (data.placeName === "" || data.notes === "") {
       setError("A place name, notes and rating must be entered.");
     }
     // console.log("handleSubmit", data);
-		try {
-			const url = "http://localhost:8080/users/Itinerary";
+    try {
+      const url = "http://localhost:8080/users/Itinerary";
       data.token = localStorage.getItem("token");
-      console.log("LocalStorageData", data)
-			// const res  = await axios.post(url, data);
-			const res  = await axios.post(url, data);
+      console.log("LocalStorageData", data);
+      // const res  = await axios.post(url, data);
+      const res = await axios.post(url, data);
       //, {headers: localStorage.getItem("token")}
-      if(res.status === 400) {
+      if (res.status === 400) {
         return setError(res);
       }
-			// navigate("/login");
-			console.log(res);
-		} catch (error) {
+      // navigate("/login");
+      console.log(res);
+      setItems([data, ...items]);
+      // console.log()
+    } catch (error) {
       // console.log(error.response.data.message);
       // setError("An email or password needs to be entered.");
-		}
-	};
+    }
+  };
   // useEffect(() => {
   //   setNotes(notes);
   // },[notes])
@@ -55,62 +80,64 @@ const ItineraryForm = () => {
   //   setPlaceRating(placeRating);
   // },[placeRating])
 
-
   // useEffect(() => {
   //   setChecked(checked)
   // },[checked])
-  
+
   return (
     <>
-    <Box component="form" noValidate onSubmit= {e => e.preventDefault()} sx={{ mt: 3 }}>
-         <div>{ error }</div>
-         <Button variant="contained" color="primary">
+      <Box
+        component="form"
+        noValidate
+        onSubmit={(e) => e.preventDefault()}
+        sx={{ mt: 3 }}
+      >
+        <div>{error}</div>
+        <Button variant="contained" color="primary">
           <Link to={"/"}>Home</Link>
-         </Button>
-      <Card elevation={4} className={classes.container}>
-         <Typography variant="h2" gutterBottom>
-           Travel Intinerary
-      </Typography>
-      <CardMedia className={classes.media}
-          style={{ height: 350 }}
-          image={'https://source.unsplash.com/random'}
-          title="Travel Itinerary"
-      />
-        <CardContent>
-      <Grid container spacing={4}>
-        <Grid item xs={12} sm={12}>
-          <TextField
-            id="placeName"
-            name="placeName"
-            label="Place name"
-            fullWidth
-            variant="standard"
-            required
-            onChange={handleChange}
-            autoFocus
-
-            />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            id="notes"
-            name="notes"
-            label="Notes"
-            fullWidth
-            variant="outlined"
-            fullWidth multiline rows={4}
-            onChange={handleChange}
-            required
-
-            />
-        
-        </Grid>
-        <Grid item  xs={12}>
-          <Typography variant="subtitle1">
-            Rating
+        </Button>
+        <Card elevation={4} className={classes.container}>
+          <Typography variant="h2" gutterBottom>
+            Travel Intinerary
           </Typography>
-     
-        {/* <FormControlLabel  
+          <CardMedia
+            className={classes.media}
+            style={{ height: 350 }}
+            image={"https://source.unsplash.com/random"}
+            title="Travel Itinerary"
+          />
+          <CardContent>
+            <Grid container spacing={4}>
+              <Grid item xs={12} sm={12}>
+                <TextField
+                  id="placeName"
+                  name="placeName"
+                  label="Place name"
+                  fullWidth
+                  variant="standard"
+                  required
+                  onChange={handleChange}
+                  autoFocus
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  id="notes"
+                  name="notes"
+                  label="Notes"
+                  fullWidth
+                  variant="outlined"
+                  fullWidth
+                  multiline
+                  rows={4}
+                  onChange={handleChange}
+                  required
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="subtitle1">Rating</Typography>
+
+                {/* <FormControlLabel  
           control={ 
           <Rating 
             name="simple-controlled"
@@ -124,9 +151,9 @@ const ItineraryForm = () => {
           }
          >
           </FormControlLabel> */}
-        </Grid>
-        <Grid item xs={12}>
-          {/* <FormControlLabel
+              </Grid>
+              <Grid item xs={12}>
+                {/* <FormControlLabel
           control={ 
           <Checkbox 
           checked={checked}
@@ -136,31 +163,41 @@ const ItineraryForm = () => {
           }
           label="Completed?">
           </FormControlLabel> */}
-          <Button
-              className={classes.buttonSubmit}
-              onClick={handleSubmit}
-              type="submit"
-              color="primary"
-              fullWidth
-              size="large"
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              SUBMIT
-            </Button >
-           
-        
-              {/* <Button variant="contained">{ done ? 'not visited' : 'visited?'} </Button> */}
-              {/* <Button variant="contained">Delete</Button> */}
-         
+                <Button
+                  className={classes.buttonSubmit}
+                  onClick={handleSubmit}
+                  type="submit"
+                  color="primary"
+                  fullWidth
+                  size="large"
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  SUBMIT
+                </Button>
+
+                {/* <Button variant="contained">{ done ? 'not visited' : 'visited?'} </Button> */}
+                {/* <Button variant="contained">Delete</Button> */}
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+      </Box>
+      <Typography variant="h2" gutterBottom>
+        My Saved Notes
+      </Typography>
+
+      <Grid
+        className={classes.container}
+        container
+        alignItems="stretch"
+        spacing={3}
+      >
+        <Grid item xs={12} sm={6} md={6}>
+          <ItineraryItems items={items} />
         </Grid>
       </Grid>
-      </CardContent>
-</Card>
-</Box>
-</>
-    
-    
+    </>
   );
-}
+};
 export default ItineraryForm;
