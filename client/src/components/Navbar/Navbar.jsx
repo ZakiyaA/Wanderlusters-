@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import Logout from '../LogOut/LogOut';
 import {AppBar, Toolbar, CssBaseline, Typography, makeStyles} from "@material-ui/core";
 import Box from '@mui/material/Box';
@@ -33,7 +33,15 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbarlink: {
     textDecoration: "none", 
-  }
+  },
+  title: {
+    display: 'none',
+    flexGrow: 1,
+    textAlign: "center",
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
+  },
 }));
 
 const Navbar = ({isLoggedIn}) => {
@@ -58,6 +66,8 @@ const Navbar = ({isLoggedIn}) => {
     };
 
   const classes = useStyles();
+  const history = useHistory();
+
   if (isLoggedIn) {
   return(
     <nav>
@@ -66,11 +76,12 @@ const Navbar = ({isLoggedIn}) => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
-            variant="h6"
+            variant="h3"
+            className={classes.title}
             noWrap
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
-          >
+          >🌐Wanderlusters
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -104,33 +115,6 @@ const Navbar = ({isLoggedIn}) => {
             >
             </Menu>
           </Box>
-          <Box sx={{ flexGrow: 0 }}>
-              <Link to="/" className={classes.toolbarlink} > 
-              <Button 
-                variant="contained" 
-                color="primary"
-                onClick=""
-                type="submit"
-              >Home 
-              </Button>
-              </Link>
-              <Link to="/Itinerary" className={classes.toolbarlink} >
-              <Button 
-                variant="contained" 
-                color="primary"
-                onClick=""
-                type="submit"
-              >Intinerary 
-              </Button>
-              </Link>
-              <Button 
-                variant="contained" 
-                color="primary"
-                onClick={Logout}
-                type="submit"
-              > LogOut 
-              </Button>
-          </Box>
         </Toolbar>
       </Container>
     </AppBar>
@@ -143,25 +127,30 @@ const Navbar = ({isLoggedIn}) => {
   else {
 
     return (
-      <AppBar position="static">
-        <CssBaseline />
-        <Toolbar>
-          <Typography variant="h4" className={classes.logo}>
-          🌐Wanderlusters
+      <>
+      <div
+        style={{
+          backgroundImage: "url(https://www.blackcarnews.com/wp-content/uploads/2020/03/BUSINESS-TRAVEL.jpg)",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          width: "100vw",
+          height: "100vh",
+        }}
+      ></div>
+      <Typography variant="h1">
+          Welcome to 🌐Wanderlusters.. 
           </Typography>
-            <div className={classes.navlinks}>
-              <Link to="/About" className={classes.link}>
-              About
-              </Link>
-              <Link to="/SignUp" className={classes.link}>
-              SignUp
-              </Link>
-              <Link to="/LogIn" className={classes.link}>
-              LogIn
-              </Link>
-            </div>
-        </Toolbar>
-      </AppBar>
+          <Button
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          history.push("/SignUp");
+        } }
+        type="submit"
+      > Sign Up Here </Button>
+  
+      </>
     );
   }
 };
