@@ -47,7 +47,7 @@ const ItineraryForm = () => {
          </Button>
       <Card elevation={4} className={classes.container}>
          <Typography variant="h2" gutterBottom>
-         🌐Travel Intinerary
+         Travel Intinerary
       </Typography>
       <CardMedia className={classes.media}
           style={{ height: 350 }}

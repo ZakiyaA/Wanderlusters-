@@ -8,10 +8,13 @@ const { generateToken, decodeToken } = require('../utils/jwt.js');
 module.exports = (db) => {
 
   // Create a new user ...................
-  router.post('/SignUp', async (req, res) => {
+  router.post('/SignUp', async(req, res) => {
     const newUser = req.body;
     if (await getUserEmail(newUser.email) === newUser.email) {
-      return res.status(400).send("Email is already in use.");
+      //return res.status(400).json("Email is already in use.");
+      res.json({
+        error: "Email already in use!"
+      });
     } //if email is already in use throw an error.....
     else {
       const salt = bcrypt.genSaltSync(12);

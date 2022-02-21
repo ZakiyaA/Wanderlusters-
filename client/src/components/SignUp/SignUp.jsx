@@ -17,6 +17,7 @@ import { email, required } from '../../models/validation';
 import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
 import axios from 'axios';
+import {useHistory} from 'react-router-dom';
 
 
 const theme = createTheme();
@@ -29,6 +30,7 @@ export default function SignUp() {
 		password: "",
 	});
 	const [error, setError] = useState("");
+  const history = useHistory();
 
 	const handleChange = ({ currentTarget: input }) => {
 		setData({ ...data, [input.name]: input.value });
@@ -52,8 +54,15 @@ export default function SignUp() {
 		try {
 			const url = "http://localhost:8080/users/SignUp";
 			const res  = await axios.post(url, data);
-      this.history.push("/login");
+      console.log("res", res);
+      if (res.data.error) {
+        setError(res.data.error);
+      } else {
+        history.push("/LogIn")
+      }
+
 		} catch (error) {
+      setError(`Something Went Wrong ${error.message}`)
      console.log(error);
     }
 	};
@@ -79,7 +88,7 @@ export default function SignUp() {
           <Box component="form" noValidate 
           
           onSubmit= {e => e.preventDefault()} sx={{ mt: 3 }}>
-            validate={validate}
+            {/*validate={validate}*/}
           <div>{ error }</div>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
