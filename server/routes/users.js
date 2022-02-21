@@ -134,8 +134,8 @@ module.exports = (db) => {
     // const user_id = 1;
     return db
       .query(
-        `INSERT INTO itinerary (placeName, guest_id, notes) VALUES ($1, $2, $3) RETURNING *;`,
-        [data.placeName, user_id, data.notes]
+        `INSERT INTO itinerary (placename, guest_id, notes) VALUES ($1, $2, $3) RETURNING *;`,
+        [data.placename, user_id, data.notes]
       )
       .then((data) => {
         const itinerary_data = data.rows[0];
@@ -155,7 +155,7 @@ module.exports = (db) => {
     //   res.error("💩");
     //   return;
     // }
-    db.query(`SELECT placeName, notes FROM itinerary`)
+    db.query(`SELECT placename, notes FROM itinerary`)
       .then((data) => res.send({ itineraryItems: data.rows }))
       .catch((e) => {
         console.error(e);

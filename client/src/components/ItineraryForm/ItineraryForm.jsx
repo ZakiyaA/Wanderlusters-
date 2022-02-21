@@ -21,8 +21,17 @@ import ItineraryItems from "../ItineraryItems/ItineraryItems";
 
 const ItineraryForm = () => {
   const classes = useStyles();
+
+  const placeInput = React.useRef(null);
+  const notesInput = React.useRef(null);
+
+  const imgs = [
+    "https://media.istockphoto.com/photos/getting-around-the-city-picture-id1291341916?s=612x612",
+    "https://media.istockphoto.com/photos/young-man-arms-outstretched-by-the-sea-at-sunrise-enjoying-freedom-picture-id1285301614?s=612x612",
+    "https://media.istockphoto.com/photos/hot-air-balloons-flying-over-the-botan-canyon-in-turkey-picture-id1297349747?b=1&k=20&m=1297349747&s=170667a&w=0&h=oH31fJty_4xWl_JQ4OIQWZKP8C6ji9Mz7L4XmEnbqRU=",
+  ];
   const [data, setData] = useState({
-    placeName: "",
+    placename: "",
     notes: "",
   });
   const [error, setError] = useState("");
@@ -37,53 +46,46 @@ const ItineraryForm = () => {
     });
   }, []);
   // const [placeRating, setPlaceRating] = useState(0);
-  // const [placeName, setPlaceName]= useState('');
+  // const [placename, setPlacename]= useState('');
   // const [notes, setNotes]= useState('');
   // const [checked, setChecked]= useState(false);
 
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
   };
+  console.log("DATA", data);
 
   const handleSubmit = async (e) => {
-    // e.preventDefault();
-    if (data.placeName === "" || data.notes === "") {
-      setError("A place name, notes and rating must be entered.");
+    if (data.placename === "" || data.notes === "") {
+      setError("A place name and notes must be entered.");
     }
-    // console.log("handleSubmit", data);
+    setData({});
+    console.log("Empty Data", data);
     try {
       const url = "http://localhost:8080/users/Itinerary";
       data.token = localStorage.getItem("token");
       console.log("LocalStorageData", data);
-      // const res  = await axios.post(url, data);
+      setItems([data, ...items]);
       const res = await axios.post(url, data);
-      //, {headers: localStorage.getItem("token")}
       if (res.status === 400) {
         return setError(res);
       }
-      // navigate("/login");
-      console.log(res);
-      setItems([data, ...items]);
-      // console.log()
-    } catch (error) {
-      // console.log(error.response.data.message);
-      // setError("An email or password needs to be entered.");
-    }
+      placeInput.current.value = "";
+      notesInput.current.value = "";
+
+      // if (res.data) {
+      //   console.log("RES", res);
+      //   setData({
+      //     placename: "",
+      //     notes: "",
+      //   });
+      // }
+
+      console.log(data);
+      console.log(items);
+    } catch (error) {}
   };
-  // useEffect(() => {
-  //   setNotes(notes);
-  // },[notes])
-  // useEffect(() => {
-  //   setPlaceName(placeName);
-  // },[placeName])
-  // useEffect(() => {
-  //   setPlaceRating(placeRating);
-  // },[placeRating])
-
-  // useEffect(() => {
-  //   setChecked(checked)
-  // },[checked])
-
+  console.log("outside handlesubmit", data);
   return (
     <>
       <Box
@@ -110,14 +112,15 @@ const ItineraryForm = () => {
             <Grid container spacing={4}>
               <Grid item xs={12} sm={12}>
                 <TextField
-                  id="placeName"
-                  name="placeName"
+                  id="placename"
+                  name="placename"
                   label="Place name"
                   fullWidth
                   variant="standard"
                   required
                   onChange={handleChange}
                   autoFocus
+                  inputRef={placeInput}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -132,12 +135,13 @@ const ItineraryForm = () => {
                   rows={4}
                   onChange={handleChange}
                   required
+                  inputRef={notesInput}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <Typography variant="subtitle1">Rating</Typography>
+              {/* <Grid item xs={12}> */}
+              {/* <Typography variant="subtitle1">Rating</Typography> */}
 
-                {/* <FormControlLabel  
+              {/* <FormControlLabel  
           control={ 
           <Rating 
             name="simple-controlled"
@@ -151,7 +155,7 @@ const ItineraryForm = () => {
           }
          >
           </FormControlLabel> */}
-              </Grid>
+              {/* </Grid> */}
               <Grid item xs={12}>
                 {/* <FormControlLabel
           control={ 
@@ -183,7 +187,7 @@ const ItineraryForm = () => {
           </CardContent>
         </Card>
       </Box>
-      <Typography variant="h2" gutterBottom>
+      {/* <Typography variant="h2" gutterBottom>
         My Saved Notes
       </Typography>
 
@@ -193,10 +197,10 @@ const ItineraryForm = () => {
         alignItems="stretch"
         spacing={3}
       >
-        <Grid item xs={12} sm={6} md={6}>
-          <ItineraryItems items={items} />
-        </Grid>
-      </Grid>
+        <Grid item xs={12} sm={6} md={6}> */}
+      <ItineraryItems items={items} imgs={imgs} />
+      {/* </Grid>
+      </Grid> */}
     </>
   );
 };
