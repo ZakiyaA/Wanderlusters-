@@ -13,7 +13,7 @@ const pool = new Pool({
    * @param {string} id The id of the user.
    * @return {Promise<{}>} A promise to the user.
    */
- const getUserWithId = function (id) {
+ const getUserWithId = function(id) {
     const queryString = ` 
     SELECT *
     FROM users

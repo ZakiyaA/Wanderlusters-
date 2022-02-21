@@ -1,9 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const bcrypt = require('bcrypt');
-const {db, getUserWithEmail, getUserEmail, getUserID} = require('../db.js');
-const { generateToken, decodeToken} = require('../utils/jwt.js');
-const { token } = require('morgan');
+const {db, getUserWithEmail, getUserEmail} = require('../db.js');
+const { generateToken, decodeToken } = require('../utils/jwt.js');
 // const {getUserWithEmail} = require('../db.js');
 
 
@@ -55,28 +54,26 @@ module.exports = (db) => {
 
   router.post('/Login', (req, res) => {
     const {email, password} = req.body;
-    console.log("login-------------", req.body)
+    console.log("Req.body", req.body);
     login(email, password)
+  
       .then(user => {
-        // console.log("res in Login", res);
-        // console.log("login", {user});
+        console.log("login", user);
         if (!user) {
          
           return res.status(401).json({error: "invalid email or password"});
-        } 
-        
-        console.log("userID", user);
-        req.session.user_id = user.user_id;
-        console.log("seesionr", req.session.user_id)
-        
+        }
+
+        // req.session.userId = user.user_id;
+        // console.log("seesionr", req.session)
+        // res.redirect("/")
         const token = generateToken(user);
         const userInfo = {firstName: user.firstName, 
                       firstName: user.lastName, 
                       email: user.email, 
                       user_id: req.session.user_id}
                       console.log("tokenBackEnd", token)
-                      res.redirect("/")
-        return res.send({user: userInfo, token});
+        return res.send({data: userInfo, token});
 
       })
       .catch(e => {
@@ -139,14 +136,13 @@ module.exports = (db) => {
   router.post('/Itinerary', async (req, res) => {
     const data = req.body;
     console.log("Dataataa", data)
-    console.log("req.session", req.session);
-    // const guest_id = decodeToken(token);
-    const guest_id = req.session.user_id;
-    console.log("session in guest_id", guest_id)
+    const user_id = decodeToken(data.token);
+    console.log("user_id", user_id)
+    // guest_id = user_id;
     // const user_id = 1;
     return(
        db.query(`INSERT INTO itinerary (placeName, guest_id, notes) VALUES ($1, $2, $3) RETURNING *;`,
-      [data.placeName, guest_id, data.notes]))
+      [data.placeName, user_id, data.notes]))
     .then(data => {
       const itinerary_data = data.rows;
       res.json({ itinerary_data });
