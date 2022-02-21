@@ -1,43 +1,45 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useState } from 'react';
-import { email, required } from '../../models/validation';
-import Alert from '@material-ui/lab/Alert';
-import AlertTitle from '@material-ui/lab/AlertTitle';
-import axios from 'axios';
-import {useHistory} from 'react-router-dom';
-
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useState } from "react";
+import { email, required } from "../../models/validation";
+import Alert from "@material-ui/lab/Alert";
+import AlertTitle from "@material-ui/lab/AlertTitle";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const theme = createTheme();
 
 export default function SignUp() {
   const [data, setData] = useState({
-		firstName: "",
-		lastName: "",
-		email: "",
-		password: "",
-	});
-	const [error, setError] = useState("");
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState("");
   const history = useHistory();
 
-	const handleChange = ({ currentTarget: input }) => {
-		setData({ ...data, [input.name]: input.value });
-	};
+  const handleChange = ({ currentTarget: input }) => {
+    setData({ ...data, [input.name]: input.value });
+  };
 
   const validate = (values) => {
-    const errors = required(['firstName', 'lastName', 'email', 'password'], values);
+    const errors = required(
+      ["firstName", "lastName", "email", "password"],
+      values
+    );
 
     if (!errors.email) {
       const emailError = email(values.email);
@@ -50,22 +52,20 @@ export default function SignUp() {
   };
 
   const handleSubmit = async (e) => {
-
-		try {
-			const url = "http://localhost:8080/users/SignUp";
-			const res  = await axios.post(url, data);
+    try {
+      const url = "http://localhost:8080/users/SignUp";
+      const res = await axios.post(url, data);
       console.log("res", res);
       if (res.data.error) {
         setError(res.data.error);
       } else {
-        history.push("/LogIn")
+        history.push("/LogIn");
       }
-
-		} catch (error) {
-      setError(`Something Went Wrong ${error.message}`)
-     console.log(error);
+    } catch (error) {
+      setError(`Something Went Wrong ${error.message}`);
+      console.log(error);
     }
-	};
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -74,22 +74,25 @@ export default function SignUp() {
         <Box
           sx={{
             marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign Up
           </Typography>
-          <Box component="form" noValidate 
-          
-          onSubmit= {e => e.preventDefault()} sx={{ mt: 3 }}>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={(e) => e.preventDefault()}
+            sx={{ mt: 3 }}
+          >
             {/*validate={validate}*/}
-          <div>{ error }</div>
+            <div>{error}</div>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -137,7 +140,6 @@ export default function SignUp() {
                   autoComplete="new-password"
                 />
               </Grid>
-        
             </Grid>
             <Button
               onClick={handleSubmit}
@@ -147,7 +149,7 @@ export default function SignUp() {
               sx={{ mt: 3, mb: 2 }}
             >
               Sign Up
-            </Button >
+            </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/LogIn" variant="body2">
@@ -159,5 +161,5 @@ export default function SignUp() {
         </Box>
       </Container>
     </ThemeProvider>
-  )
-};
+  );
+}
