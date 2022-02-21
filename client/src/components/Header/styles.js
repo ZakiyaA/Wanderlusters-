@@ -3,6 +3,8 @@ import { alpha, makeStyles } from "@material-ui/core/styles";
 export default makeStyles((theme) => ({
   title: {
     display: 'none',
+    flexGrow: 1,
+    textAlign: "center",
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
@@ -29,4 +31,7 @@ export default makeStyles((theme) => ({
   toolbar: {
     display: 'flex', justifyContent: 'space-between',
   },
+  toolbarlink: {
+    textDecoration: "none", 
+  }
 }));

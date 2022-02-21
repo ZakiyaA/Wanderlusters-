@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   Grid,
   Typography,
@@ -49,6 +49,7 @@ const ItineraryForm = () => {
   // const [placename, setPlacename]= useState('');
   // const [notes, setNotes]= useState('');
   // const [checked, setChecked]= useState(false);
+  const history = useHistory();
 
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });

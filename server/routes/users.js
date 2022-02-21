@@ -3,14 +3,16 @@ var router = express.Router();
 const bcrypt = require("bcrypt");
 const { db, getUserWithEmail, getUserEmail } = require("../db.js");
 const { generateToken, decodeToken } = require("../utils/jwt.js");
-// const {getUserWithEmail} = require('../db.js');
 
 module.exports = (db) => {
   // Create a new user ...................
   router.post("/SignUp", async (req, res) => {
     const newUser = req.body;
     if ((await getUserEmail(newUser.email)) === newUser.email) {
-      return res.status(400).send("Email is already in use.");
+      //return res.status(400).json("Email is already in use.");
+      res.json({
+        error: "Email already in use!",
+      });
     } //if email is already in use throw an error.....
     else {
       const salt = bcrypt.genSaltSync(12);
@@ -37,8 +39,6 @@ module.exports = (db) => {
    */
   const login = function (email, password) {
     return getUserWithEmail(email).then((user) => {
-      // console.clear();
-      // console.log({user});
       if (bcrypt.compareSync(password, user.password)) {
         return user;
       }
@@ -49,7 +49,6 @@ module.exports = (db) => {
 
   router.post("/Login", (req, res) => {
     const { email, password } = req.body;
-    console.log("Req.body", req.body);
     login(email, password)
       .then((user) => {
         console.log("login", user);
@@ -57,9 +56,6 @@ module.exports = (db) => {
           return res.status(401).json({ error: "invalid email or password" });
         }
 
-        // req.session.userId = user.user_id;
-        // console.log("seesionr", req.session)
-        // res.redirect("/")
         const token = generateToken(user);
         const userInfo = {
           firstName: user.firstName,
@@ -67,12 +63,10 @@ module.exports = (db) => {
           email: user.email,
           user_id: user.user_id,
         };
-        console.log("tokenBackEnd", token);
         return res.send({ data: userInfo, token });
       })
       .catch((e) => {
         console.log("error", e);
-        // res.send(e);
       });
   });
 
@@ -87,14 +81,12 @@ module.exports = (db) => {
       res.send({ message: "not logged in" });
       return;
     }
-
     db.getUserWithId(userId)
       .then((user) => {
         if (!user) {
           res.send({ error: "no user with that id" });
           return;
         }
-
         res.send({ user: { name: user.name, email: user.email, id: userId } });
       })
       .catch((e) => res.send(e));

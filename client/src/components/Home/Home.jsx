@@ -13,7 +13,6 @@ import {
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import { CssBaseline, Grid } from "@material-ui/core";
-// import useStyles from '../styles.js'
 import Search from "@material-ui/icons/Search";
 import Header from "../Header/Header";
 import List from "../List/List";
@@ -23,15 +22,12 @@ import Navbar from "../Navbar/Navbar";
 
 const Home = (props) => {
   const log = localStorage.getItem("isLoggedIn");
-  console.log("PROPS", props);
   const [places, setPlaces] = useState([]);
   const [filteredPlaces, setFilteredPlaces] = useState([]);
   const [weatherData, setWeatherData] = useState([]);
   const [childClicked, setChildClicked] = useState(null);
-
   const [coordinates, setCoordinates] = useState({});
   const [bounds, setBounds] = useState({ sw: null, ne: null });
-
   const [isLoading, setIsLoading] = useState(false);
   const [type, setType] = useState("hotels");
   const [rating, setRating] = useState("3");
@@ -47,7 +43,6 @@ const Home = (props) => {
 
   // To filter places according to the rating
   useEffect(() => {
-    console.log("Is this working");
     const filtered =
       places && places.filter((place) => Number(place.rating) > rating);
     setFilteredPlaces(filtered);
@@ -61,12 +56,8 @@ const Home = (props) => {
         setWeatherData(data)
       );
 
-      console.log(coordinates, bounds);
       getPlacesData(type, bounds.sw, bounds.ne).then((data) => {
-        // console.log(data);
-
         setPlaces(data?.filter((place) => place.name && place.num_reviews > 0));
-        // setFilteredPlaces([]);
         setIsLoading(false);
       });
     }

@@ -16,8 +16,8 @@ import { useState } from 'react';
 import { email, required } from '../../models/validation';
 import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
-// import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import {useHistory} from 'react-router-dom';
 
 
 const theme = createTheme();
@@ -30,7 +30,7 @@ export default function SignUp() {
 		password: "",
 	});
 	const [error, setError] = useState("");
-	// const navigate = useNavigate();
+  const history = useHistory();
 
 	const handleChange = ({ currentTarget: input }) => {
 		setData({ ...data, [input.name]: input.value });
@@ -49,28 +49,22 @@ export default function SignUp() {
     return errors;
   };
 
-
   const handleSubmit = async (e) => {
-		// e.preventDefault();
-    // if (data.email === "" || data.password === "") {
-    //   setError("An email or password needs to be entered.");
-    // }
-    // console.log("handleSubmit", data);
+
 		try {
 			const url = "http://localhost:8080/users/SignUp";
 			const res  = await axios.post(url, data);
-      this.history.push("/login");
-      console.log("res", res.data)
-      // if(res.status === 400) {
-      //   return setError(res);
-      // }
-			// navigate("/login");
-			console.log(res);
+      console.log("res", res);
+      if (res.data.error) {
+        setError(res.data.error);
+      } else {
+        history.push("/LogIn")
+      }
+
 		} catch (error) {
-       console.error(error); }
-      // console.log(error.response.data.message);
-      // setError("An email or password needs to be entered.");
-		
+      setError(`Something Went Wrong ${error.message}`)
+     console.log(error);
+    }
 	};
 
   return (
@@ -89,13 +83,12 @@ export default function SignUp() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Sign Up
           </Typography>
           <Box component="form" noValidate 
           
           onSubmit= {e => e.preventDefault()} sx={{ mt: 3 }}>
-            validate={validate}
-          {/* <Alert severity="error">{ error }</Alert> */}
+            {/*validate={validate}*/}
           <div>{ error }</div>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
@@ -144,12 +137,7 @@ export default function SignUp() {
                   autoComplete="new-password"
                 />
               </Grid>
-              {/* <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid> */}
+        
             </Grid>
             <Button
               onClick={handleSubmit}
@@ -163,14 +151,13 @@ export default function SignUp() {
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/LogIn" variant="body2">
-                  Already have an account? Sign in
+                  Already have an account? Sign In
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        {/* <Copyright sx={{ mt: 5 }} /> */}
       </Container>
     </ThemeProvider>
-  );
-}
+  )
+};
