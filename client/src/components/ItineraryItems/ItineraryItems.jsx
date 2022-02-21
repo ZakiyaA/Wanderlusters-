@@ -1,22 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import {
-//   Grid,
-//   Typography,
-//   TextField,
-//   Button,
-//   Checkbox,
-//   FormControlLabel,
-//   Paper,
-//   Card,
-//   CardMedia,
-//   CardContent,
-//   CardActionArea,
-//   CardActions,
-//   Box,
-// } from "@material-ui/core";
-// import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-// import FormControlLabel from '@mui/material/FormControlLabel';
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Button from "@mui/material/Button";
@@ -43,12 +24,10 @@ const theme = createTheme();
 
 const ItineraryItems = ({ items }) => {
   const classes = useStyles();
-  console.log("Items", items);
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <main>
-        {/* Hero unit */}
         <Box
           sx={{
             bgcolor: "background.paper",
@@ -69,7 +48,6 @@ const ItineraryItems = ({ items }) => {
           </Container>
         </Box>
         <Container sx={{ py: 8 }} maxWidth="md">
-          {/* End hero unit */}
           <Grid container spacing={4}>
             {items.map((item) => (
               <Grid item key={item} xs={12} sm={6} md={4}>
@@ -83,7 +61,6 @@ const ItineraryItems = ({ items }) => {
                   <CardMedia
                     component="img"
                     sx={{
-                      // 16:9
                       pt: "56.25%",
                     }}
                     image="https://picsum.photos/200/300?random=2"

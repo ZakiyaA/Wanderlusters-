@@ -123,7 +123,6 @@ module.exports = (db) => {
     console.log("Dataataa", data);
     const user_id = decodeToken(data.token);
     console.log("user_id", user_id);
-    // const user_id = 1;
     return db
       .query(
         `INSERT INTO itinerary (placename, guest_id, notes) VALUES ($1, $2, $3) RETURNING *;`,
@@ -141,12 +140,6 @@ module.exports = (db) => {
   });
 
   router.get("/Itinerary", async (req, res) => {
-    // token = localStorage.getItem("token");
-    // const user_id = decodeToken(token);
-    // if (!userId) {
-    //   res.error("💩");
-    //   return;
-    // }
     db.query(`SELECT placename, notes FROM itinerary`)
       .then((data) => res.send({ itineraryItems: data.rows }))
       .catch((e) => {
