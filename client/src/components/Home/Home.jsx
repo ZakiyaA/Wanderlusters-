@@ -53,20 +53,9 @@ const Home = (props) => {
 return (
 
 <>
-  <Navbar isLoggedIn={log}/>
-  <div
-      style={{
-        backgroundImage:
-          "url(https://www.blackcarnews.com/wp-content/uploads/2020/03/BUSINESS-TRAVEL.jpg)",
-        backgroundPosition: "center",
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        width: "100vw",
-        height: "100vh",
-      }}
-    ></div>
-     
 
+  <Navbar isLoggedIn={log}/>
+  
   {log && (
    <>
     <CssBaseline />

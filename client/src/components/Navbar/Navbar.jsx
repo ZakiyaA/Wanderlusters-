@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
-import { Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Logout from '../LogOut/LogOut';
 import {AppBar, Toolbar, CssBaseline, Typography, makeStyles} from "@material-ui/core";
 import Box from '@mui/material/Box';
@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
       borderBottom: "1px solid white",
     },
   },
+  toolbarlink: {
+    textDecoration: "none", 
+  }
 }));
 
 const Navbar = ({isLoggedIn}) => {
@@ -102,20 +105,31 @@ const Navbar = ({isLoggedIn}) => {
             </Menu>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-             <Button variant="contained" color="primary">
-          <Link to={"/"}>Home</Link>
-         </Button>
-             <Button 
+              <Link to="/" className={classes.toolbarlink} > 
+              <Button 
                 variant="contained" 
-                color="primary">
-          <Link to={"/Itinerary"}>Intinerary</Link>
-         </Button>
-             <Button 
+                color="primary"
+                onClick=""
+                type="submit"
+              >Home 
+              </Button>
+              </Link>
+              <Link to="/Itinerary" className={classes.toolbarlink} >
+              <Button 
+                variant="contained" 
+                color="primary"
+                onClick=""
+                type="submit"
+              >Intinerary 
+              </Button>
+              </Link>
+              <Button 
                 variant="contained" 
                 color="primary"
                 onClick={Logout}
                 type="submit"
-                > LogOut </Button>
+              > LogOut 
+              </Button>
           </Box>
         </Toolbar>
       </Container>

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Grid, Typography, TextField, Button, Checkbox, FormControlLabel, Box, Paper, Card, CardMedia, CardContent} from '@material-ui/core';
 import { Rating } from "@material-ui/lab";
 import useStyles  from './styles'
 import axios from 'axios';
+
 
 const ItineraryForm = () => {
   const classes = useStyles();
@@ -16,6 +17,7 @@ const ItineraryForm = () => {
   // const [placeName, setPlaceName]= useState('');
   // const [notes, setNotes]= useState('');
   // const [checked, setChecked]= useState(false);
+  const history = useHistory();
 
   const handleChange = ({ currentTarget: input }) => {
 		setData({ ...data, [input.name]: input.value });
@@ -23,6 +25,7 @@ const ItineraryForm = () => {
 
   const handleSubmit = async (e) => {
 		// e.preventDefault();
+  
     if (data.placeName === "" || data.notes === "" ) {
       setError("A place name, notes and rating must be entered.");
     }
@@ -42,9 +45,14 @@ const ItineraryForm = () => {
     <>
     <Box component="form" noValidate onSubmit= {e => e.preventDefault()} sx={{ mt: 3 }}>
          <div>{ error }</div>
-         <Button variant="contained" color="primary">
-          <Link to={"/"}>Home</Link>
-         </Button>
+         <Button 
+                variant="contained" 
+                color="primary"
+                onClick={() => {
+                  history.push("/")
+                }}
+                type="submit"
+                > Home </Button>
       <Card elevation={4} className={classes.container}>
          <Typography variant="h2" gutterBottom>
          Travel Intinerary
