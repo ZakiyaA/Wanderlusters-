@@ -22,8 +22,9 @@ import useStyles from "./styles";
 import axios from "axios";
 const theme = createTheme();
 
-const ItineraryItems = ({ items }) => {
+const ItineraryItems = ({ items, handleDelete }) => {
   const classes = useStyles();
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -49,7 +50,7 @@ const ItineraryItems = ({ items }) => {
         </Box>
         <Container sx={{ py: 8 }} maxWidth="md">
           <Grid container spacing={4}>
-            {items.map((item) => (
+            {items.map((item, index) => (
               <Grid item key={item} xs={12} sm={6} md={4}>
                 <Card
                   sx={{
@@ -75,7 +76,12 @@ const ItineraryItems = ({ items }) => {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">DELETE</Button>
+                    <Button
+                      size="small"
+                      onClick={() => handleDelete(item.id, index)}
+                    >
+                      DELETE
+                    </Button>
                   </CardActions>
                 </Card>
               </Grid>

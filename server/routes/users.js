@@ -2,7 +2,11 @@ var express = require("express");
 var router = express.Router();
 const bcrypt = require("bcrypt");
 const { db, getUserWithEmail, getUserEmail } = require("../db.js");
-const { generateToken, decodeToken } = require("../utils/jwt.js");
+const {
+  generateToken,
+  decodeToken,
+  validateToken,
+} = require("../utils/jwt.js");
 
 module.exports = (db) => {
   // Create a new user ...................
@@ -14,12 +18,10 @@ module.exports = (db) => {
       //   error: "Email already in use!",
       // });
     } //if email is already in use throw an error.....
-    
-      if (newUser.email === "" || newUser.password === "") {
-        return res.status(400).json("An email or password needs to be entered.");
-      }
-    
-    else {
+
+    if (newUser.email === "" || newUser.password === "") {
+      return res.status(400).json("An email or password needs to be entered.");
+    } else {
       const salt = bcrypt.genSaltSync(12);
       newUser.password = bcrypt.hashSync(newUser.password, salt);
       return db
@@ -123,15 +125,14 @@ module.exports = (db) => {
       });
   });
 
-  router.post("/Itinerary", async (req, res) => {
-    const data = req.body;
-    console.log("Dataataa", data);
-    const user_id = decodeToken(data.token);
+  router.post("/Itinerary", validateToken, async (req, res) => {
+    console.log("req.bod__", req.body);
+    const user_id = req.user_id;
     console.log("user_id", user_id);
     return db
       .query(
         `INSERT INTO itinerary (placename, guest_id, notes) VALUES ($1, $2, $3) RETURNING *;`,
-        [data.placename, user_id, data.notes]
+        [req.body.placename, user_id, req.body.notes]
       )
       .then((data) => {
         const itinerary_data = data.rows[0];
@@ -144,9 +145,27 @@ module.exports = (db) => {
       });
   });
 
-  router.get("/Itinerary", async (req, res) => {
-    db.query(`SELECT placename, notes FROM itinerary`)
+  router.get("/Itinerary", validateToken, async (req, res) => {
+    const user_id = req.user_id;
+    db.query(`SELECT id, placename, notes FROM itinerary WHERE guest_id=$1;`, [
+      user_id,
+    ])
       .then((data) => res.send({ itineraryItems: data.rows }))
+      .catch((e) => {
+        console.error(e);
+        res.send(e);
+      });
+  });
+
+  router.post("/itinerary/delete/:id", validateToken, async (req, res) => {
+    const user_id = req.user_id;
+    const itinerary_id = req.params.id;
+    console.log("====", itinerary_id);
+    db.query(`DELETE FROM itinerary WHERE id = $1 AND guest_id = $2`, [
+      itinerary_id,
+      user_id,
+    ])
+      .then((data) => res.status(200).send({ messgae: "ok" }))
       .catch((e) => {
         console.error(e);
         res.send(e);
