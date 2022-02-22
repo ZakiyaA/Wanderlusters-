@@ -23,6 +23,7 @@ import axios from "axios";
 const theme = createTheme();
 
 const ItineraryItems = ({ items }) => {
+  console.log("items", items)
   const classes = useStyles();
   return (
     <ThemeProvider theme={theme}>
@@ -58,17 +59,20 @@ const ItineraryItems = ({ items }) => {
                     flexDirection: "column",
                   }}
                 >
-                  <CardMedia
+                  {/* <CardMedia
                     component="img"
                     sx={{
                       pt: "56.25%",
                     }}
                     image="https://picsum.photos/200/300?random=2"
                     alt="random"
-                  />
-                  <CardContent sx={{ flexGrow: 1 }}>
+                  /> */}
+                  <CardContent sm={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
                       {item.placename}
+                    </Typography>
+                    <Typography gutterBottom variant="subtitle1" component="h2">
+                      {/* {item.website} */}
                     </Typography>
                     <Typography gutterBottom variant="subtitle1" component="h2">
                       {item.notes}

@@ -62,7 +62,7 @@ export default function SignUp() {
       }
 
 		} catch (error) {
-      setError(`Something Went Wrong ${error.message}`)
+      setError(`Something Went Wrong`)
      console.log(error);
     }
 	};

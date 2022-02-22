@@ -29,7 +29,7 @@ const Home = (props) => {
   const [coordinates, setCoordinates] = useState({});
   const [bounds, setBounds] = useState({ sw: null, ne: null });
   const [isLoading, setIsLoading] = useState(false);
-  const [type, setType] = useState("hotels");
+  const [type, setType] = useState("restaurants");
   const [rating, setRating] = useState("3");
 
   //Set the user's current location when we open the page first.

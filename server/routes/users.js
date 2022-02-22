@@ -130,8 +130,8 @@ module.exports = (db) => {
     console.log("user_id", user_id);
     return db
       .query(
-        `INSERT INTO itinerary (placename, guest_id, notes) VALUES ($1, $2, $3) RETURNING *;`,
-        [data.placename, user_id, data.notes]
+        `INSERT INTO itinerary (placename, guest_id, website, notes) VALUES ($1, $2, $3, $4) RETURNING *;`,
+        [data.placename, user_id, data.website, data.notes]
       )
       .then((data) => {
         const itinerary_data = data.rows[0];

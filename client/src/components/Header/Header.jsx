@@ -39,7 +39,7 @@ const Header = ({setCoordinates}) => {
                 color="primary"
                 onClick=""
                 type="submit"
-              >Intinerary 
+              >Itinerary 
               </Button>
               </Link>
               <Button 

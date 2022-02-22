@@ -21,9 +21,13 @@ const ItineraryForm = () => {
   // using useRef to clear the form
   const placeInput = React.useRef(null);
   const notesInput = React.useRef(null);
+  // const websiteInput = React.useRef(null);
   const [data, setData] = useState({
+    // website: "",
     placename: "",
-    notes: "",
+    notes: ""
+    
+
   });
   const [error, setError] = useState("");
 
@@ -58,6 +62,7 @@ const ItineraryForm = () => {
       }
       placeInput.current.value = "";
       notesInput.current.value = "";
+      // websiteInput.current.value = "";
     } catch (error) {}
   };
   return (
@@ -83,7 +88,7 @@ const ItineraryForm = () => {
         </Link>
         <Card elevation={4} className={classes.container}>
           <Typography variant="h2" gutterBottom>
-            Travel Intinerary
+            Travel Itinerary
           </Typography>
           <CardMedia
             className={classes.media}
@@ -106,6 +111,21 @@ const ItineraryForm = () => {
                   inputRef={placeInput}
                 />
               </Grid>
+
+              {/* <Grid item xs={12} sm={12}>
+                <TextField
+                  id="website"
+                  name="website"
+                  label="website"
+                  fullWidth
+                  variant="standard"
+                  required
+                  onChange={handleChange}
+                  autoFocus
+                  inputRef={websiteInput}
+                />
+              </Grid> */}
+
               <Grid item xs={12}>
                 <TextField
                   id="notes"
