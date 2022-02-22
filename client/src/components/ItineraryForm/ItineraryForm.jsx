@@ -11,7 +11,6 @@ import {
   CardMedia,
   CardContent,
 } from "@material-ui/core";
-// import FormControlLabel from '@mui/material/FormControlLabel';
 import { Rating } from "@material-ui/lab";
 import useStyles from "./styles";
 import axios from "axios";
@@ -19,15 +18,9 @@ import ItineraryItems from "../ItineraryItems/ItineraryItems";
 
 const ItineraryForm = () => {
   const classes = useStyles();
-
+  // using useRef to clear the form
   const placeInput = React.useRef(null);
   const notesInput = React.useRef(null);
-
-  const imgs = [
-    "https://media.istockphoto.com/photos/getting-around-the-city-picture-id1291341916?s=612x612",
-    "https://media.istockphoto.com/photos/young-man-arms-outstretched-by-the-sea-at-sunrise-enjoying-freedom-picture-id1285301614?s=612x612",
-    "https://media.istockphoto.com/photos/hot-air-balloons-flying-over-the-botan-canyon-in-turkey-picture-id1297349747?b=1&k=20&m=1297349747&s=170667a&w=0&h=oH31fJty_4xWl_JQ4OIQWZKP8C6ji9Mz7L4XmEnbqRU=",
-  ];
   const [data, setData] = useState({
     placename: "",
     notes: "",
@@ -54,8 +47,6 @@ const ItineraryForm = () => {
     if (data.placename === "" || data.notes === "") {
       setError("A place name and notes must be entered.");
     }
-    setData({});
-    console.log("Empty Data", data);
     try {
       const url = "http://localhost:8080/users/Itinerary";
       data.token = localStorage.getItem("token");
@@ -67,11 +58,8 @@ const ItineraryForm = () => {
       }
       placeInput.current.value = "";
       notesInput.current.value = "";
-      console.log(data);
-      console.log(items);
     } catch (error) {}
   };
-  console.log("outside handlesubmit", data);
   return (
     <>
       <Box
@@ -151,7 +139,7 @@ const ItineraryForm = () => {
           </CardContent>
         </Card>
       </Box>
-      <ItineraryItems items={items} imgs={imgs} />
+      <ItineraryItems items={items} />
     </>
   );
 };
