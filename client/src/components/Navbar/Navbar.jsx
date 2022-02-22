@@ -11,6 +11,9 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import Image from '../../docs/dariusz-sankowski-3OiYMgDKJ6k-unsplash.jpg';
+
+import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   navlinks: {
@@ -38,10 +41,22 @@ const useStyles = makeStyles((theme) => ({
     display: 'none',
     flexGrow: 1,
     textAlign: "center",
+    textColor: "white",
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
   },
+  paperContainer: {
+    backgroundImage: `url(${Image})`,
+    height: '100vh',
+    width: '100vw',
+    border: 'none'
+},
+mainTitle: {
+  
+  color: "white"
+}
+
 }));
 
 const Navbar = ({isLoggedIn}) => {
@@ -81,7 +96,7 @@ const Navbar = ({isLoggedIn}) => {
             noWrap
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
-          >🌐Wanderlusters
+          >🌐 Wanderlusters
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -128,31 +143,37 @@ const Navbar = ({isLoggedIn}) => {
 
     return (
       <>
-      <div
-        style={{
-          backgroundImage: "url(https://www.blackcarnews.com/wp-content/uploads/2020/03/BUSINESS-TRAVEL.jpg)",
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          width: "100vw",
-          height: "100vh",
-        }}
-      ></div>
-      <Typography variant="h1">
-          Welcome to 🌐Wanderlusters.. 
+       <Grid container direction="column" alignItems="center" justifyContent="center" className={classes.paperContainer}>
+        <Typography variant="h1" align="center" className={classes.mainTitle}>
+          Welcome to  
           </Typography>
-          <Button
+          <Typography variant="h1" align="center" className={classes.mainTitle}>
+           🌐 Wanderlusters.. 
+          </Typography>
+       
+          <Box m={1} p={2}>
+      <Button
         variant="contained"
         color="primary"
         onClick={() => {
           history.push("/SignUp");
         } }
         type="submit"
-      > Sign Up Here </Button>
+        > Sign Up Here </Button>   
+      </Box>
+        <Button
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          history.push("/LogIn");
+        } }
+        type="submit"
+        > Login Here </Button> 
+
+        </Grid>
   
       </>
     );
   }
 };
 export default Navbar;
-

@@ -1,10 +1,9 @@
 import * as React from "react";
+import axios from "axios";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -16,7 +15,7 @@ import { useState } from "react";
 import { email, required } from "../../models/validation";
 import Alert from "@material-ui/lab/Alert";
 import AlertTitle from "@material-ui/lab/AlertTitle";
-import axios from "axios";
+
 import { useHistory } from "react-router-dom";
 
 const theme = createTheme();

@@ -5,8 +5,6 @@ import {
   Typography,
   TextField,
   Button,
-  Checkbox,
-  FormControlLabel,
   Box,
   Paper,
   Card,
@@ -71,9 +69,18 @@ const ItineraryForm = () => {
         sx={{ mt: 3 }}
       >
         <div>{error}</div>
-        <Button variant="contained" color="primary">
-          <Link to={"/"}>Home</Link>
-        </Button>
+        
+        <Link to="/" className={classes.toolbarlink} > 
+        <Box m={1} p={2}>
+          <Button 
+            variant="contained" 
+            color="primary"
+            onClick=""
+            type="submit"
+          >Home 
+          </Button>
+          </Box>
+        </Link>
         <Card elevation={4} className={classes.container}>
           <Typography variant="h2" gutterBottom>
             Travel Intinerary

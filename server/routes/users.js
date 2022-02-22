@@ -9,11 +9,16 @@ module.exports = (db) => {
   router.post("/SignUp", async (req, res) => {
     const newUser = req.body;
     if ((await getUserEmail(newUser.email)) === newUser.email) {
-      //return res.status(400).json("Email is already in use.");
-      res.json({
-        error: "Email already in use!",
-      });
+      return res.send("Email is already in use.");
+      // res.json({
+      //   error: "Email already in use!",
+      // });
     } //if email is already in use throw an error.....
+    
+      if (newUser.email === "" || newUser.password === "") {
+        return res.status(400).json("An email or password needs to be entered.");
+      }
+    
     else {
       const salt = bcrypt.genSaltSync(12);
       newUser.password = bcrypt.hashSync(newUser.password, salt);
