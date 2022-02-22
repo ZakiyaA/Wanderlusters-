@@ -17,11 +17,9 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
-
 const theme = createTheme();
 
 function SignIn() {
-  // const navigate = useNavigate();
   const {push} = useHistory();
   const [data, setData] = useState({ email: "", password: "" });
 	const [error, setError] = useState("");
@@ -50,15 +48,10 @@ function SignIn() {
     //  console.log("token", token);
 		try {
 			const url = "http://localhost:8080/users/Login";
-			const res  = await axios.post(url, data)
-         .then(res => {
-          // console.log("res in Login", JSON.parse(sessionStorage.getItem('data')));
-          localStorage.setItem("isLoggedIn", true);
-          localStorage.setItem("token", res.data.token);
-          console.log("TOKEN front End", res.data.token);
-          push({pathname: '/', state: {isLoggedIn: true, token: res.data.token}}) 
-         })
-      
+			const res  = await axios.post(url, data);
+			localStorage.setItem("isLoggedIn", true);
+			localStorage.setItem("token", res.data.token);
+      push({pathname: '/', state: {isLoggedIn: true, token: res.data.token}}) 
 		} catch (error) {
       console.log(error);
 		}
@@ -80,7 +73,7 @@ function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign In
           </Typography>
           <Box component="form" onSubmit= {e => e.preventDefault()} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -107,7 +100,7 @@ function SignIn() {
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+              label="Remember Me"
             />
             <Button
               onClick={handleSubmit}

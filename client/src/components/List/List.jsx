@@ -1,6 +1,5 @@
 import React, { useState, useEffect, createRef } from "react";
 import { CircularProgress, Grid, Typography, InputLabel, MenuItem, FormControl, Select } from "@material-ui/core";
-
 import useStyles  from './styles'
 import PlaceDetails from '../PlaceDetails/PlaceDetails.jsx'
 
@@ -10,7 +9,6 @@ const List = ({ places, childClicked, isLoading, type, setType, rating, setRatin
 
    useEffect(() => {
       const refs = Array(places?.length).fill().map((_, i) => elRefs[i] || createRef());
-    // console.log("refs", refs)
       setElRefs(refs);
     }, [places]);
 

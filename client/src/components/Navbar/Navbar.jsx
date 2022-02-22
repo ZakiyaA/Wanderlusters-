@@ -1,23 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
-import { Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import Logout from '../LogOut/LogOut';
 import {AppBar, Toolbar, CssBaseline, Typography, makeStyles} from "@material-ui/core";
-
-
 import Box from '@mui/material/Box';
-
 import IconButton from '@mui/material/IconButton';
-
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import Image from '../../docs/dariusz-sankowski-3OiYMgDKJ6k-unsplash.jpg';
 
-
+import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   navlinks: {
@@ -38,15 +34,34 @@ const useStyles = makeStyles((theme) => ({
       borderBottom: "1px solid white",
     },
   },
+  toolbarlink: {
+    textDecoration: "none", 
+  },
+  title: {
+    display: 'none',
+    flexGrow: 1,
+    textAlign: "center",
+    textColor: "white",
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
+  },
+  paperContainer: {
+    backgroundImage: `url(${Image})`,
+    height: '100vh',
+    width: '100vw',
+    border: 'none'
+},
+mainTitle: {
+  
+  color: "white"
+}
+
 }));
 
 const Navbar = ({isLoggedIn}) => {
-  const pages = ['HOME', 'Itenary'];
-  // const settings = ['Home', 'Itenary', 'Dashboard', 'Logout'];
+  const pages = ['HOME', 'Itinerary'];
 
- 
-  
-  
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
   
@@ -65,9 +80,9 @@ const Navbar = ({isLoggedIn}) => {
       setAnchorElUser(null);
     };
 
-
-  console.log({isLoggedIn})
   const classes = useStyles();
+  const history = useHistory();
+
   if (isLoggedIn) {
   return(
     <nav>
@@ -76,11 +91,12 @@ const Navbar = ({isLoggedIn}) => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
-            variant="h6"
+            variant="h3"
+            className={classes.title}
             noWrap
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
-          >
+          >🌐 Wanderlusters
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -114,19 +130,6 @@ const Navbar = ({isLoggedIn}) => {
             >
             </Menu>
           </Box>
-          <Box sx={{ flexGrow: 0 }}>
-             <Button variant="contained" color="primary">
-          <Link to={"/"}>Home</Link>
-         </Button>
-             <Button variant="contained" color="primary">
-          <Link to={"/Itenary"}>Intinerary</Link>
-         </Button>
-             <Button variant="contained" color="primary"
-             onClick={Logout}
-                //  onClick={handleSubmit}
-                type="submit"
-                > LogOut </Button>
-          </Box>
         </Toolbar>
       </Container>
     </AppBar>
@@ -139,27 +142,38 @@ const Navbar = ({isLoggedIn}) => {
   else {
 
     return (
-      <AppBar position="static">
-        <CssBaseline />
-        <Toolbar>
-          <Typography variant="h4" className={classes.logo}>
-          Wanderlusters
+      <>
+       <Grid container direction="column" alignItems="center" justifyContent="center" className={classes.paperContainer}>
+        <Typography variant="h1" align="center" className={classes.mainTitle}>
+          Welcome to  
           </Typography>
-            <div className={classes.navlinks}>
-              <Link to="/About" className={classes.link}>
-              About
-              </Link>
-              <Link to="/SignUp" className={classes.link}>
-              SignUp
-              </Link>
-              <Link to="/LogIn" className={classes.link}>
-              LogIn
-              </Link>
-            </div>
-        </Toolbar>
-      </AppBar>
+          <Typography variant="h1" align="center" className={classes.mainTitle}>
+           🌐 Wanderlusters.. 
+          </Typography>
+       
+          <Box m={1} p={2}>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          history.push("/SignUp");
+        } }
+        type="submit"
+        > Sign Up Here </Button>   
+      </Box>
+        <Button
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          history.push("/LogIn");
+        } }
+        type="submit"
+        > Login Here </Button> 
+
+        </Grid>
+  
+      </>
     );
   }
 };
 export default Navbar;
-
