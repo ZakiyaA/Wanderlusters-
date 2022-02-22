@@ -15,6 +15,7 @@ import { Rating } from "@material-ui/lab";
 import useStyles from "./styles";
 import axios from "axios";
 import ItineraryItems from "../ItineraryItems/ItineraryItems";
+import Image from "../../docs/Q2A4186.jpg";
 
 const ItineraryForm = () => {
   const classes = useStyles();
@@ -123,7 +124,10 @@ const ItineraryForm = () => {
           <CardMedia
             className={classes.media}
             style={{ height: 350 }}
-            image={"https://source.unsplash.com/random"}
+            image={
+              "https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg"
+            }
+            // image={"https://source.unsplash.com/random"}
             title="Travel Itinerary"
           />
           <CardContent>

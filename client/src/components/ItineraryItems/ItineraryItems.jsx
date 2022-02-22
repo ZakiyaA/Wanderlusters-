@@ -15,8 +15,6 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-//
 import { Rating } from "@material-ui/lab";
 import useStyles from "./styles";
 import axios from "axios";
@@ -24,7 +22,6 @@ const theme = createTheme();
 
 const ItineraryItems = ({ items, handleDelete }) => {
   const classes = useStyles();
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -39,7 +36,7 @@ const ItineraryItems = ({ items, handleDelete }) => {
           <Container maxWidth="sm">
             <Typography
               component="h1"
-              variant="h2"
+              variant="h3"
               align="center"
               color="text.primary"
               gutterBottom
@@ -51,7 +48,7 @@ const ItineraryItems = ({ items, handleDelete }) => {
         <Container sx={{ py: 8 }} maxWidth="md">
           <Grid container spacing={4}>
             {items.map((item, index) => (
-              <Grid item key={item} xs={12} sm={6} md={4}>
+              <Grid item key={item} xs={12} sm={8} md={6}>
                 <Card
                   sx={{
                     height: "100%",
@@ -59,27 +56,24 @@ const ItineraryItems = ({ items, handleDelete }) => {
                     flexDirection: "column",
                   }}
                 >
-                  <CardMedia
+                  {/* <CardMedia
                     component="img"
                     sx={{
                       pt: "56.25%",
                     }}
                     image="https://picsum.photos/200/300?random=2"
                     alt="random"
-                  />
+                  /> */}
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
                       {item.placename}
                     </Typography>
-                    <Typography gutterBottom variant="subtitle1" component="h2">
+                    <Typography gutterBottom variant="h6" component="h2">
                       {item.notes}
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button
-                      size="small"
-                      onClick={() => handleDelete(item.id, index)}
-                    >
+                    <Button onClick={() => handleDelete(item.id, index)}>
                       DELETE
                     </Button>
                   </CardActions>
