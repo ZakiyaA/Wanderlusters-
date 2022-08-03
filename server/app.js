@@ -3,7 +3,7 @@ var path = require("path");
 var cors = require("cors");
 // var cookieParser = require('cookie-parser');
 var logger = require("morgan");
-const PORT = 8080;
+const PORT = 8081;
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const { db: pool } = require("./db");
@@ -22,11 +22,10 @@ app.use(
   })
 );
 
-
-app.use(function(req, res, next) { res.locals.user_id = req.session.user_id;     
-   next(); });
-
-  
+app.use(function (req, res, next) {
+  res.locals.user_id = req.session.user_id;
+  next();
+});
 
 app.use(cors());
 

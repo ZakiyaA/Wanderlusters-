@@ -60,7 +60,7 @@ export default function SignUp() {
     // }
     // console.log("handleSubmit", data);
 		try {
-			const url = "http://localhost:8080/users/SignUp";
+			const url = "http://localhost:3456/users/SignUp";
 			const res  = await axios.post(url, data);
       this.history.push("/login");
       console.log("res", res.data)

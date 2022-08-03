@@ -15,6 +15,7 @@ import { Rating } from "@material-ui/lab";
 import useStyles from "./styles";
 import axios from "axios";
 import ItineraryItems from "../ItineraryItems/ItineraryItems";
+import Image from "../../docs/Q2A4186.jpg";
 
 const ItineraryForm = () => {
   const classes = useStyles();
@@ -34,8 +35,9 @@ const ItineraryForm = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    Promise.all([axios.get("/users/itinerary")]).then((res) => {
-      console.log("res.[]", res[0].data.itineraryItems);
+    const config = getHeader();
+    Promise.all([axios.get("/users/itinerary", config)]).then((res) => {
+      // console.log("res.[]++++++", res[0].data.itineraryItems);
 
       setItems(res[0].data.itineraryItems);
     });
@@ -47,22 +49,55 @@ const ItineraryForm = () => {
   };
   console.log("DATA", data);
 
-  const handleSubmit = async (e) => {
+  //Sending the token in headers
+  const getHeader = () => {
+    const token = localStorage.getItem("token");
+    // if (!token) {
+    //   // Redirect to login
+    // }
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    return config;
+  };
+
+  const handleSubmit = async (id) => {
     if (data.placename === "" || data.notes === "") {
       setError("A place name and notes must be entered.");
     }
+
+    const config = getHeader();
+
     try {
-      const url = "http://localhost:8080/users/Itinerary";
-      data.token = localStorage.getItem("token");
+      // data.token = localStorage.getItem("token");
+      const url = `http://localhost:3456/users/Itinerary/`;
       console.log("LocalStorageData", data);
       setItems([data, ...items]);
-      const res = await axios.post(url, data);
+      const res = await axios.post(url, data, config);
       if (res.status === 400) {
         return setError(res);
       }
       placeInput.current.value = "";
       notesInput.current.value = "";
       // websiteInput.current.value = "";
+    } catch (error) {}
+  };
+
+  const handleDelete = async (id, index) => {
+    const config = getHeader();
+
+    try {
+      const url = `http://localhost:3456/users/itinerary/delete/${id}`;
+      // data.token = localStorage.getItem("token");
+      // console.log("LocalStorageData", data);
+      setItems([]);
+      const res = await axios.post(url, {}, config);
+      const tempItems = [...items];
+      tempItems.splice(index, 1);
+      setItems([...tempItems]);
+      if (res.status === 400) {
+        return setError(res);
+      }
     } catch (error) {}
   };
   return (
@@ -74,16 +109,17 @@ const ItineraryForm = () => {
         sx={{ mt: 3 }}
       >
         <div>{error}</div>
-        
-        <Link to="/" className={classes.toolbarlink} > 
-        <Box m={1} p={2}>
-          <Button 
-            variant="contained" 
-            color="primary"
-            onClick=""
-            type="submit"
-          >Home 
-          </Button>
+
+        <Link to="/" className={classes.toolbarlink}>
+          <Box m={1} p={2}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick=""
+              type="submit"
+            >
+              Home
+            </Button>
           </Box>
         </Link>
         <Card elevation={4} className={classes.container}>
@@ -93,7 +129,10 @@ const ItineraryForm = () => {
           <CardMedia
             className={classes.media}
             style={{ height: 350 }}
-            image={"https://source.unsplash.com/random"}
+            image={
+              "https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg"
+            }
+            // image={"https://source.unsplash.com/random"}
             title="Travel Itinerary"
           />
           <CardContent>
@@ -159,7 +198,7 @@ const ItineraryForm = () => {
           </CardContent>
         </Card>
       </Box>
-      <ItineraryItems items={items} />
+      <ItineraryItems items={items} handleDelete={handleDelete} />
     </>
   );
 };
