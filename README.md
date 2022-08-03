@@ -10,7 +10,7 @@ In this project, we created an app that users are able to search for restaurants
 The info cards display ratings, rankings, awards, type of food/attraction, contact information, address and gives 2 links to travel advisor and the locations website.The user is able to filter information cards about the locations by type and rating. 
 !["Info Card"](https://github.com/ZakiyaA/Final_project/blob/main/client/src/docs/DropDown.png?raw=true)
 *Search for locations*
-!["Search Bar"](https://github.com/jencaza33/Wanderlusters/blob/main/client/src/docs/SearchBar.png?raw=true)
+!["Search Bar"](https://github.com/ZakiyaA/Final_project/blob/main/client/src/docs/SearchBar.png?raw=true)
 *Itinerary Page*
 !["Itinerary"](https://github.com/jencaza33/Wanderlusters/blob/main/client/src/docs/Itinerary.png?raw=true)
 
