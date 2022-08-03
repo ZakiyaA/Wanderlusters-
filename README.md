@@ -5,6 +5,19 @@ Wanderlusters is a travel companion website built by Jen, Zakiya and Khadeeja fo
 We were given one week to create this website and fulfill all the MVPs that we had set for ourselves. We used a PERN stack using Create React App.
 In this project, we created an app that users are able to search for restaurants, hotels and attractions in a given area. The user is brought automatically to their location using geolocation but they can also search for a specific location that they desire to travel to. The user will see information cards on the map to see where the locations are situated.
 
+
+## HomePage
+
+!["HomePage"](https://github.com/ZakiyaA/Final_project/blob/main/client/src/docs/HomePage.png?raw=true)
+
+## SigUp Page 
+
+!["SigUp Page"](https://github.com/ZakiyaA/Final_project/blob/main/client/src/docs/SignUp.png?raw=true)
+
+## SigIn Page 
+
+!["SigIn Page"](https://github.com/ZakiyaA/Final_project/blob/main/client/src/docs/SignIn.png?raw=true)
+
 ## Map
 
 !["Map"](https://github.com/jencaza33/Wanderlusters/blob/main/client/src/docs/Map.png?raw=true)
