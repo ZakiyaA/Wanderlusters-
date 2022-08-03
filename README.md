@@ -1,5 +1,6 @@
 # Wanderlusters
 ## LightHouseLabs Final Project
+
 Wanderlusters is a travel companion website built by Jen, Zakiya and Khadeeja for the Lighthouse Labs final project.
 We were given one week to create this website and fulfill all the MVPs that we had set for ourselves. We used a PERN stack using Create React App.
 In this project, we created an app that users are able to search for restaurants, hotels and attractions in a given area. The user is brought automatically to their location using geolocation but they can also search for a specific location that they desire to travel to. The user will see information cards on the map to see where the locations are situated.
@@ -9,13 +10,16 @@ In this project, we created an app that users are able to search for restaurants
 !["Map"](https://github.com/jencaza33/Wanderlusters/blob/main/client/src/docs/Map.png?raw=true)
 
 ## Info card with drop down filter
+
 The info cards display ratings, rankings, awards, type of food/attraction, contact information, address and gives 2 links to travel advisor and the locations website.The user is able to filter information cards about the locations by type and rating. 
 !["Info Card"](https://github.com/ZakiyaA/Final_project/blob/main/client/src/docs/DropDown.png?raw=true)
 
 ## Search for locations
 
 !["Search Bar"](https://github.com/ZakiyaA/Final_project/blob/main/client/src/docs/SearchBar.png?raw=true)
-*Itinerary Page*
+
+## Itinerary Page
+
 !["Itinerary"](https://github.com/ZakiyaA/Final_project/blob/main/client/src/docs/Itinerary.png?raw=true)
 
 ## Getting Started
