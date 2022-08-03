@@ -1,19 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Autocomplete } from "@react-google-maps/api";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  InputBase,
-  Box,
-  Card,
-  CardMedia,
-  Paper,
-  Button,
-} from "@material-ui/core";
-import SearchIcon from "@material-ui/icons/Search";
 import { CssBaseline, Grid } from "@material-ui/core";
-import Search from "@material-ui/icons/Search";
 import Header from "../Header/Header";
 import List from "../List/List";
 import Map from "../Map/Map";
