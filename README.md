@@ -12,7 +12,7 @@ The info cards display ratings, rankings, awards, type of food/attraction, conta
 *Search for locations*
 !["Search Bar"](https://github.com/ZakiyaA/Final_project/blob/main/client/src/docs/SearchBar.png?raw=true)
 *Itinerary Page*
-!["Itinerary"](https://github.com/jencaza33/Wanderlusters/blob/main/client/src/docs/Itinerary.png?raw=true)
+!["Itinerary"](https://github.com/ZakiyaA/Final_project/blob/main/client/src/docs/Itinerary.png?raw=true)
 
 ## Getting Started
 1. Visit https://rapidapi.com/hub and make Open Weather Map and Travel Advisor keys
